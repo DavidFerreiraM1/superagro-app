@@ -1,4 +1,4 @@
-export const colors = {
+export const Colors = {
   'brand-primary': {
     main: '#B05800',
     contrast: '#ffffff',

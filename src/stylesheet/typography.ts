@@ -1,4 +1,4 @@
-export const size = {
+export const Size = {
   xxs: 10,
   xs: 12,
   sm: 14,
