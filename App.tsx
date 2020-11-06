@@ -7,21 +7,8 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import {AppRouteSwitch} from './src/routes';
 
-import {BtnContentText, Button} from './src/components';
-
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Button color="action-primary" variant="contained">
-          <BtnContentText color="action-primary">alguma coisa</BtnContentText>
-        </Button>
-      </SafeAreaView>
-    </>
-  );
-};
+const App = () => <AppRouteSwitch />;
 
 export default App;
