@@ -3,7 +3,15 @@ import {TextInput as RnTextInput} from 'react-native';
 import {DefaultColors} from '../../design-tokens';
 import {StyleProps} from './types';
 
-const setBorderColor = ({color}: StyleProps): string => {
+const setBorderColor = ({color, variant}: StyleProps): string => {
+  const result = {
+    text: 'transparent',
+    contained: color ? DefaultColors[color].main : '#FFFFFF',
+  };
+  return result[variant];
+};
+
+const setColor = ({color}: StyleProps): string => {
   return color ? DefaultColors[color].main : '#FFFFFF';
 };
 
@@ -26,8 +34,8 @@ export const Background = Styled.View`
 export const TextInput = Styled(RnTextInput)`
   height: 100%;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
   padding-horizontal: 16px;
   padding-vertical: 8px;
-  color: ${setBorderColor}
+  color: ${setColor}
 `;
