@@ -48,7 +48,7 @@ export function Header() {
         <TitleArea>
           <TitleBox>
             <TitleImage source={PoultryImage} />
-            <NewItemDescription>Suínos</NewItemDescription>
+            <NewItemDescription>Aves</NewItemDescription>
           </TitleBox>
         </TitleArea>
       </HeaderContent>
