@@ -8,7 +8,7 @@ const setBorderColor = ({color, variant}: StyleProps): string => {
     text: 'transparent',
     contained: color ? DefaultColors[color].main : '#FFFFFF',
   };
-  return result[variant];
+  return variant ? result[variant] : '#FFFFFF';
 };
 
 const setColor = ({color}: StyleProps): string => {
