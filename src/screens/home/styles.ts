@@ -9,7 +9,7 @@ export const BackgroundScreen = Styled.View`
 export const HeaderRoot = Styled.View`
   background-color: ${DefaultColors['brand-primary'].main}
   width: 100%;
-  height: 128px;
+  height: 160px;
   border-bottom-right-radius: 16px;
   border-bottom-left-radius: 16px;
   elevation: 8;
@@ -19,6 +19,7 @@ export const HeaderContent = Styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: 16px;
 `;
 
 export const FarmImage = Styled.Image`
@@ -29,18 +30,19 @@ export const FarmImage = Styled.Image`
 export const HeaderLeftElement = Styled.View`
   height: 100%;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 export const HeaderRightElement = Styled.View`
   height: 100%;
   flex-direction: row-reverse;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 export const ProfileBackground = Styled.View`
   height: 56px;
   width: 56px;
+  top: 8px;
   border-width: 2px;
   border-color: ${DefaultColors['brand-secondary'].main};
   border-radius: 36px;
@@ -70,6 +72,21 @@ export const IconFormBoxText = Styled.Text`
   color: ${DefaultColors['brand-primary'].contrast}
   width: 72px;
   text-align: left;
+`;
+
+export const FilterBackgroundBox = Styled.View`
+  height: 64px;
+  width: 100%;
+  flex-direction: row;
+  background-color: transparent;
+  padding-horizontal: 16px;
+`;
+
+export const SearchInputContent = Styled.View`
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  padding-horizontal: 16px;
 `;
 
 export const SelectCategoryContainer = Styled.View`
