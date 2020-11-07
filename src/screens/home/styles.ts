@@ -89,9 +89,14 @@ export const SearchInputContent = Styled.View`
   padding-horizontal: 16px;
 `;
 
-export const SelectCategoryContainer = Styled.View`
+export const SelectContainer = Styled.View`
   padding-vertical: 8px;
-  width: 172px;
+  flex-direction: row;
+  width: 100%;
+`;
+
+export const BoxSelect = Styled.View`
+  width: 50%;
 `;
 
 export const BtnSelect = Styled.TouchableOpacity`
