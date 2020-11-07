@@ -1,11 +1,6 @@
 import React from 'react';
 import FarmIcon from '../../assets/images/farm-white.png';
-import SearchIcon from '../../assets/icons/search.svg';
-import {
-  TextInput as TextInputBackground,
-  TextInputStyled,
-} from '../../components';
-import {DefaultColors} from '../../design-tokens';
+
 import {SearchFilter} from './search-filter';
 import {
   FarmImage,
@@ -17,7 +12,6 @@ import {
   ProfileBackground,
   ProfileName,
   HeaderRightElement,
-  SearchInputContent,
 } from './styles';
 
 export function Header() {
@@ -35,18 +29,7 @@ export function Header() {
           <ProfileName>Nome do usuário</ProfileName>
         </HeaderRightElement>
       </HeaderContent>
-      <SearchFilter>
-        <TextInputBackground variant="contained" color="brand-secondary">
-          <SearchInputContent>
-            <SearchIcon height={24} width={16} />
-            <TextInputStyled
-              placeholderTextColor={DefaultColors['brand-secondary'].main}
-              placeholder="Pesquisar por localização"
-              color="brand-secondary"
-            />
-          </SearchInputContent>
-        </TextInputBackground>
-      </SearchFilter>
+      <SearchFilter />
     </HeaderRoot>
   );
 }
