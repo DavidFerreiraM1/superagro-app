@@ -2,6 +2,7 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {BtnContentText, Button, ContainerScreen} from '../../components';
 import {DefaultColors} from '../../design-tokens';
+import {ButtonSelectCategory} from './button-select-category';
 import {Header} from './header';
 import {ItemBox} from './item-box';
 import {
@@ -9,8 +10,6 @@ import {
   BottomBox,
   ListBox,
   SelectCategoryContainer,
-  BtnSelect,
-  BtnSelectText,
 } from './styles';
 
 export function Home() {
@@ -23,9 +22,7 @@ export function Home() {
       <BackgroundScreen>
         <Header />
         <SelectCategoryContainer>
-          <BtnSelect>
-            <BtnSelectText>Suínos</BtnSelectText>
-          </BtnSelect>
+          <ButtonSelectCategory />
         </SelectCategoryContainer>
         <ListBox contentContainerStyle={{paddingBottom: 88}}>
           <ItemBox />

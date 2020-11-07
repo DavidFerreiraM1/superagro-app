@@ -6,26 +6,26 @@ import {
   HeaderRoot,
   IconFarmBox,
   IconFormBoxText,
-  LeftElement,
+  HeaderLeftElement,
   ProfileBackground,
   ProfileName,
-  RightElement,
+  HeaderRightElement,
 } from './styles';
 
 export function Header() {
   return (
     <HeaderRoot>
       <HeaderContent>
-        <LeftElement>
+        <HeaderLeftElement>
           <IconFarmBox>
             <FarmImage source={FarmIcon} />
           </IconFarmBox>
           <IconFormBoxText>Granja Comary</IconFormBoxText>
-        </LeftElement>
-        <RightElement>
+        </HeaderLeftElement>
+        <HeaderRightElement>
           <ProfileBackground />
           <ProfileName>Nome do usuário</ProfileName>
-        </RightElement>
+        </HeaderRightElement>
       </HeaderContent>
     </HeaderRoot>
   );
