@@ -8,7 +8,7 @@ export function ButtonSelectCategory() {
     <BtnSelect>
       <BtnSelectIcon source={PigImage} />
       <BtnSelectText>suínos</BtnSelectText>
-      <ArrowBtnIcon style={{transform: [{rotate: '90deg'}]}}>
+      <ArrowBtnIcon>
         <ArrowIcon height={14} width={14} />
       </ArrowBtnIcon>
     </BtnSelect>
