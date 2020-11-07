@@ -1,5 +1,4 @@
 import Styled from 'styled-components/native';
-import {Button} from '../../components';
 import {DefaultColors} from '../../design-tokens';
 
 export const BackgroundScreen = Styled.View`
@@ -13,6 +12,7 @@ export const HeaderRoot = Styled.View`
   height: 128px;
   border-bottom-right-radius: 16px;
   border-bottom-left-radius: 16px;
+  elevation: 8;
 `;
 
 export const HeaderContent = Styled.View`
@@ -26,13 +26,13 @@ export const FarmImage = Styled.Image`
   width: 40px;
 `;
 
-export const LeftElement = Styled.View`
+export const HeaderLeftElement = Styled.View`
   height: 100%;
   flex-direction: row;
   align-items: center;
 `;
 
-export const RightElement = Styled.View`
+export const HeaderRightElement = Styled.View`
   height: 100%;
   flex-direction: row-reverse;
   align-items: center;
@@ -74,13 +74,16 @@ export const IconFormBoxText = Styled.Text`
 
 export const SelectCategoryContainer = Styled.View`
   padding-vertical: 8px;
-  width: 100%;
+  width: 172px;
 `;
 
 export const BtnSelect = Styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
   padding-vertical: 8px;
+  padding-horizontal: 12px;
   margin-horizontal: 16px;
-  width: 120px;
   background-color: #ECA864;
   height: auto;
   border-radius: 200px;
@@ -89,11 +92,18 @@ export const BtnSelect = Styled.TouchableOpacity`
 `;
 
 export const BtnSelectText = Styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   font-family: OpenSans-Regular;
   color: #542A00;
   text-align: center;
 `;
+
+export const BtnSelectIcon = Styled.Image`
+  height: 18px;
+  width: 26px;
+`;
+
+export const ArrowBtnIcon = Styled.View``;
 
 export const ListBox = Styled.ScrollView`
   flex: 1;

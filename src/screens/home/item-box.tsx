@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowIcon from '../../assets/icons/arrow-white.svg';
+import ArrowIcon from '../../assets/icons/arrow.svg';
 import TrashIcon from '../../assets/images/trash.png';
 import {
   ColumnBox,
