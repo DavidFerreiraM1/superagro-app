@@ -2,6 +2,7 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {ContainerScreen} from '../../components';
 import {DefaultColors} from '../../design-tokens';
+import {BottomControl} from './bottom-control';
 import {Header} from './header';
 import {ContentScreen} from './styles';
 
@@ -14,6 +15,7 @@ export function ItemFormRegister() {
       />
       <Header />
       <ContentScreen />
+      <BottomControl />
     </ContainerScreen>
   );
 }

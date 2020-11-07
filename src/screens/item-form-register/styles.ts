@@ -60,3 +60,18 @@ export const NewItemDescription = Styled.Text`
   text-align: center;
   color: ${DefaultColors['action-primary'].main};
 `;
+
+export const BottomControlContainer = Styled.View`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const ButtonSideBox = Styled.View`
+  width: 50%;
+  align-items: center;
+  padding-horizontal: 8px;
+`;
