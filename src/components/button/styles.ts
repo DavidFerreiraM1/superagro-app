@@ -14,13 +14,21 @@ const setColor = ({color}: BtnContentTextProps): string => {
   return color ? DefaultColors[color].contrast : '#000000';
 };
 
+const setElevation = ({variant}: StyleProps): number => {
+  const result = {
+    text: 0,
+    contained: 8,
+  };
+  return result[variant];
+};
+
 export const Root = Styled.TouchableOpacity`
   width: 100%;
-  background-color: brown;
+  background-color: ${setBgColor};
   height: auto;
   border-radius: 200px;
   margin-vertical: 8px;
-  elevation: 8;
+  elevation: ${setElevation};
 `;
 
 export const Background = Styled.View`
