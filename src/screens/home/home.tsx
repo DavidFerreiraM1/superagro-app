@@ -17,7 +17,7 @@ import {
 
 export function Home(props: StackHeaderProps) {
   const registerNewItemNavigate = () => {
-    // props.navigation.navigate('home-2');
+    props.navigation.navigate('item-form-register');
   };
 
   return (
