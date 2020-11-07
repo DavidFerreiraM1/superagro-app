@@ -6,7 +6,7 @@ import {
   TextInputStyled,
 } from '../../components';
 import {DefaultColors} from '../../design-tokens';
-import {SearchFilter} from './SearchFilter';
+import {SearchFilter} from './search-filter';
 import {
   FarmImage,
   HeaderContent,
