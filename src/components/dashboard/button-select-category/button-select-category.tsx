@@ -1,5 +1,6 @@
 import React from 'react';
-import {ArrowBtnIcon, BtnSelect, BtnSelectIcon, BtnSelectText} from './styles';
+import {ArrowBtnIcon, BtnSelectIcon} from './styles';
+import {BtnSelect, BtnSelectText} from '../..';
 import PigImage from '../../../assets/images/pig.png';
 import PoultryImage from '../../../assets/images/poultry.png';
 import ArrowIcon from '../../../assets/icons/arrow.svg';
@@ -9,16 +10,16 @@ const values = {
     image: PigImage,
     text: 'Suínos',
     style: {
-      height: 17.5,
-      width: 27,
+      height: 24,
+      width: 35,
     },
   },
   poultry: {
     image: PoultryImage,
     text: 'Aves',
     style: {
-      height: 24,
-      width: 24,
+      height: 25,
+      width: 34,
     },
   },
 };
