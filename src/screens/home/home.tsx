@@ -3,7 +3,7 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import {BtnContentText, Button, ContainerScreen} from '../../components';
 import {DefaultColors} from '../../design-tokens';
-import {ButtonSelectCategory} from './button-select-category';
+import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -30,7 +30,7 @@ export function Home(props: StackHeaderProps) {
         <Header />
         <SelectContainer>
           <BoxSelect>
-            <ButtonSelectCategory />
+            <ButtonSelectCategory typeSelect="swine" />
           </BoxSelect>
           <BoxSelect>
             <ButtonSelectFilterParam />
