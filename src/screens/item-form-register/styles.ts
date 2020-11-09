@@ -141,7 +141,7 @@ export const BtnSelectCustomTextTitle = Styled.Text`
 
 export const BtnSelectCustomText = Styled.Text`
   font-family: OpenSans-Regular;
-  font-size: 12px;
+  font-size: 14px;
   text-align: justify;
 `;
 
@@ -155,4 +155,13 @@ export const BtnSelectCustomRightBox = Styled.View`
   height: 100%;
   justify-content: center;
   align-items: center;
+`;
+
+export const FeedbackText = Styled.Text`
+  margin-vertical: 24px;
+  width: 100%;
+  font-family: OpenSans-Regular;
+  color: ${DefaultColors['action-primary'].main}
+  font-size: 16px;
+  text-align: center;
 `;
