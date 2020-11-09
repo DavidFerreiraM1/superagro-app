@@ -12,6 +12,7 @@ import {TrackingCodeFormPage} from './tracking-code-form-page';
 import {PhaseProductionFormPage} from './phase-production-form-page';
 import {AnimalStatusFormPage} from './animal-status-input-form-page';
 import {FormRegister} from './form-context';
+import {RegisterFinalStaging} from './register-final-staging';
 
 const StackFormNavigation = createStackNavigator();
 const headerNull = () => null;
@@ -73,6 +74,11 @@ export function ItemFormRegister() {
           options={{header: headerNull}}
           component={AnimalStatusFormPage}
           name="animal-status"
+        />
+        <StackFormNavigation.Screen
+          options={{header: headerNull}}
+          component={RegisterFinalStaging}
+          name="register-final-staging"
         />
       </StackFormNavigation.Navigator>
     </FormRegister>
