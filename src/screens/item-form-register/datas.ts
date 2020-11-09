@@ -1,4 +1,4 @@
-export const farmType = {
+export const farmType: any = {
   poultry: [
     {initials: 'URE', description: 'Recria'},
     {initials: 'UCC', description: 'Ciclo Completo'},
@@ -16,7 +16,7 @@ export const farmType = {
   ],
 };
 
-export const productionPhase = {
+export const productionPhase: any = {
   swine: [
     {
       initials: 'MAT',
@@ -60,16 +60,3 @@ export const productionPhase = {
     },
   ],
 };
-
-export const formKeys = [
-  'tipoAnimal',
-  'statusAnimal',
-  'nome',
-  'localizacao',
-  'dataNascimento',
-  'entradaPlantel',
-  'pesoCompra',
-  'raca',
-  'codigoRastreamento',
-  'faseProducao',
-];

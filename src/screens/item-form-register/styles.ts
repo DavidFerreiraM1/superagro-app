@@ -126,7 +126,6 @@ export const BtnSelectCustom = Styled(BtnSelect)`
 `;
 
 export const BtnSelectContent = Styled.View`
-  height: 124px;
   width: 100%;
   flex-direction: row;
   align-items: center;

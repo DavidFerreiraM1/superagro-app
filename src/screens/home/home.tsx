@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {StackHeaderProps} from '@react-navigation/stack';
 import React from 'react';
 import {StatusBar} from 'react-native';
@@ -30,7 +31,7 @@ export function Home(props: StackHeaderProps) {
         <Header />
         <SelectContainer>
           <BoxSelect>
-            <ButtonSelectCategory typeSelect="swine" />
+            <ButtonSelectCategory typeSelect="swine" onPress={() => {}} />
           </BoxSelect>
           <BoxSelect>
             <ButtonSelectFilterParam />
