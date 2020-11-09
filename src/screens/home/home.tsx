@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {StackHeaderProps} from '@react-navigation/stack';
-import React from 'react';
+import React, {useRef} from 'react';
 import {StatusBar} from 'react-native';
-import {BtnContentText, Button, ContainerScreen} from '../../components';
+import {
+  BtnContentText,
+  Button,
+  ContainerScreen,
+  Drawer,
+} from '../../components';
 import {DefaultColors} from '../../design-tokens';
-import {ButtonSelectCategory} from '../../components/dashboard';
+import {ButtonSelectCategory, ProfilePhoto} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -14,9 +19,20 @@ import {
   ListBox,
   BoxSelect,
   SelectContainer,
+  CloseDrawerButton,
+  DrawerAreaProfilePhoto,
+  DrawerPropertyOptionBox,
+  DrawerPropertyOption,
+  DrawerPropertyOptionText,
 } from './styles';
+import ArrowIcon from '../../assets/icons/arrow.svg';
 
 export function Home(props: StackHeaderProps) {
+  const drawerRef: any = useRef();
+  const openDrawer = () => {
+    drawerRef.current.open();
+  };
+
   const registerNewItemNavigate = () => {
     props.navigation.navigate('item-form-register');
   };
@@ -28,7 +44,7 @@ export function Home(props: StackHeaderProps) {
         barStyle="light-content"
       />
       <BackgroundScreen>
-        <Header />
+        <Header openDrawer={openDrawer} />
         <SelectContainer>
           <BoxSelect>
             <ButtonSelectCategory typeSelect="swine" onPress={() => {}} />
@@ -52,6 +68,24 @@ export function Home(props: StackHeaderProps) {
           </Button>
         </BottomBox>
       </BackgroundScreen>
+      <>
+        <Drawer ref={drawerRef}>
+          <CloseDrawerButton onPress={() => drawerRef.current.close()}>
+            <ArrowIcon height={24} width={24} />
+          </CloseDrawerButton>
+          <DrawerAreaProfilePhoto>
+            <ProfilePhoto disabled />
+          </DrawerAreaProfilePhoto>
+          <DrawerPropertyOptionBox>
+            <DrawerPropertyOption>
+              <DrawerPropertyOptionText>Usuário</DrawerPropertyOptionText>
+            </DrawerPropertyOption>
+            <DrawerPropertyOption>
+              <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
+            </DrawerPropertyOption>
+          </DrawerPropertyOptionBox>
+        </Drawer>
+      </>
     </ContainerScreen>
   );
 }

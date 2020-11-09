@@ -1,5 +1,6 @@
 import React from 'react';
 import FarmIcon from '../../assets/images/farm-white.png';
+import {ProfilePhoto} from '../../components/dashboard';
 
 import {SearchFilter} from './search-filter';
 import {
@@ -9,12 +10,15 @@ import {
   IconFarmBox,
   IconFormBoxText,
   HeaderLeftElement,
-  ProfileBackground,
   ProfileName,
   HeaderRightElement,
 } from './styles';
 
-export function Header() {
+interface Props {
+  openDrawer: () => void;
+}
+
+export function Header(props: Props) {
   return (
     <HeaderRoot>
       <HeaderContent>
@@ -25,7 +29,7 @@ export function Header() {
           <IconFormBoxText>Granja Comary</IconFormBoxText>
         </HeaderLeftElement>
         <HeaderRightElement>
-          <ProfileBackground />
+          <ProfilePhoto onPress={props.openDrawer} />
           <ProfileName>Nome do usuário</ProfileName>
         </HeaderRightElement>
       </HeaderContent>
