@@ -18,7 +18,10 @@ export function AnimalStatusFormPage(props: StackHeaderProps) {
             <BtnContentText>Vendido</BtnContentText>
             <Arrow height={16} width={16} />
           </BtnSelect>
-          <BtnSelect onPress={() => {}}>
+          <BtnSelect
+            onPress={() => {
+              props.navigation.navigate('register-final-staging');
+            }}>
             <BtnContentText>Descartado</BtnContentText>
             <Arrow height={16} width={16} />
           </BtnSelect>
