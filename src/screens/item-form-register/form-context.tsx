@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useState} from 'react';
 
 export const FormRegisterContext = createContext({
   values: {
@@ -39,10 +39,6 @@ export function FormRegister(props: any) {
       [key]: value,
     });
   };
-
-  useEffect(() => {
-    console.log('VALUE MUDOU', values);
-  }, [values]);
 
   return (
     <FormRegisterContext.Provider value={{values, setFormValues}}>
