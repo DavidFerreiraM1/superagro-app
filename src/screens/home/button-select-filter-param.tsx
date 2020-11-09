@@ -1,5 +1,6 @@
 import React from 'react';
-import {ArrowBtnIcon, BtnSelect, BtnSelectText} from './styles';
+import {ArrowBtnIcon} from './styles';
+import {BtnSelectText, BtnSelect} from '../../components';
 import ArrowIcon from '../../assets/icons/arrow.svg';
 
 export function ButtonSelectFilterParam() {

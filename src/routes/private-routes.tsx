@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home} from '../screens';
+import {Home, ItemFormRegister} from '../screens';
 
 const PrivateNavigateStack = createStackNavigator();
 const HeaderNull = () => null;
@@ -11,6 +11,11 @@ export function PrivateRoutes() {
         name="home"
         options={{header: HeaderNull}}
         component={Home}
+      />
+      <PrivateNavigateStack.Screen
+        name="item-form-register"
+        options={{header: HeaderNull}}
+        component={ItemFormRegister}
       />
     </PrivateNavigateStack.Navigator>
   );

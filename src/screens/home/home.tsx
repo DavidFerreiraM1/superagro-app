@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {StackHeaderProps} from '@react-navigation/stack';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {BtnContentText, Button, ContainerScreen} from '../../components';
 import {DefaultColors} from '../../design-tokens';
-import {ButtonSelectCategory} from './button-select-category';
+import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -17,7 +18,7 @@ import {
 
 export function Home(props: StackHeaderProps) {
   const registerNewItemNavigate = () => {
-    // props.navigation.navigate('home-2');
+    props.navigation.navigate('item-form-register');
   };
 
   return (
@@ -30,7 +31,7 @@ export function Home(props: StackHeaderProps) {
         <Header />
         <SelectContainer>
           <BoxSelect>
-            <ButtonSelectCategory />
+            <ButtonSelectCategory typeSelect="swine" onPress={() => {}} />
           </BoxSelect>
           <BoxSelect>
             <ButtonSelectFilterParam />
