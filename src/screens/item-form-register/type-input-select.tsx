@@ -24,6 +24,7 @@ interface OwnProps {
   formKey: string;
   formKeyActive: string;
   data: datatype[];
+  onPressValue: (value: string) => void;
 }
 
 type Props = OwnProps;
@@ -36,7 +37,11 @@ export function TypeInputselect(props: Props) {
           <SelectFormLabel>{props.labelText}</SelectFormLabel>
           {props.data.map((data, key) => {
             return (
-              <BtnSelect key={key}>
+              <BtnSelect
+                key={key}
+                onPress={() => {
+                  props.onPressValue(data.initials);
+                }}>
                 <BtnSelectContent>
                   <BtnSelectCustomLeftBox>
                     <BtnSelectCustomTextTitle>

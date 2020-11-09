@@ -1,3 +1,21 @@
+export const farmType = {
+  poultry: [
+    {initials: 'URE', description: 'Recria'},
+    {initials: 'UCC', description: 'Ciclo Completo'},
+    {initials: 'UPM', description: 'Matrizes'},
+    {initials: 'UIN', description: 'Incubatório'},
+    {initials: 'UPO', description: 'Produção'},
+    {initials: 'UEN', description: 'Engorda'},
+  ],
+  swine: [
+    {initials: 'UCC', description: 'Ciclo Completo'},
+    {initials: 'UPL', description: 'Produtora de Leitões'},
+    {initials: 'UPD', description: 'Produtora de desmamados'},
+    {initials: 'UTE', description: 'Terminador'},
+    {initials: 'UCR', description: 'Crechário'},
+  ],
+};
+
 export const productionPhase = {
   swine: [
     {
@@ -42,3 +60,16 @@ export const productionPhase = {
     },
   ],
 };
+
+export const formKeys = [
+  'tipoAnimal',
+  'statusAnimal',
+  'nome',
+  'localizacao',
+  'dataNascimento',
+  'entradaPlantel',
+  'pesoCompra',
+  'raca',
+  'codigoRastreamento',
+  'faseProducao',
+];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {TextInputProps, View} from 'react-native';
 import {InputLabel, TextInputCustom} from './styles';
 
@@ -10,17 +10,19 @@ interface OwnProps {
 
 type Props = OwnProps & TextInputProps;
 
-export function TextInputForm(props: Props) {
+export function _TextInputForm(props: Props) {
   const {label, formKey, formKeyActive, ...otherProps} = props;
 
   const Component = () => {
     return (
       <>
         <InputLabel>{label}</InputLabel>
-        <TextInputCustom {...otherProps} autoFocus />
+        <TextInputCustom autoFocus {...otherProps} />
       </>
     );
   };
 
-  return <View>{formKey === formKeyActive ? <Component /> : null}</View>;
+  return <View>{formKey === formKeyActive && <Component />}</View>;
 }
+
+export const TextInputForm = memo(_TextInputForm);

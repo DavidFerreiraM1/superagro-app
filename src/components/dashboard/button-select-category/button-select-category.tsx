@@ -26,11 +26,12 @@ const values = {
 
 interface Props {
   typeSelect: 'swine' | 'poultry';
+  onPress: () => any;
 }
 
 export function ButtonSelectCategory(props: Props) {
   return (
-    <BtnSelect>
+    <BtnSelect onPress={props.onPress}>
       <BtnSelectIcon
         style={values[props.typeSelect].style}
         source={values[props.typeSelect].image}
