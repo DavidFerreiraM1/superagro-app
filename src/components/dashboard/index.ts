@@ -2,3 +2,10 @@ export {ButtonSelectCategory} from './button-select-category/button-select-categ
 export {ProfilePhoto} from './profile-photo/profile-photo';
 export {HeaderRoot, HeaderContent, BackButtonArea, BackButton} from './header';
 export {FieldPropertyInfo} from './field-property-info/field-property-info';
+export {
+  TextInputForm,
+  AnimalCategoryForm,
+  AnimalStatusForm,
+  PhaseProductionForm,
+  FarmTypeForm,
+} from './animal-input-form';

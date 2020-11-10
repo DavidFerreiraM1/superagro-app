@@ -5,7 +5,7 @@ import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from './form-context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
-import {TextInputForm} from './text-input-form';
+import {TextInputForm} from '../../components/dashboard';
 
 export function AnimalWeightFormPAge(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
