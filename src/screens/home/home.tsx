@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import React, {useEffect, useRef} from 'react';
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import React, {useRef} from 'react';
 import {StatusBar} from 'react-native';
 import {
   BtnContentText,
@@ -26,12 +28,17 @@ import {
   DrawerPropertyOptionText,
 } from './styles';
 import ArrowIcon from '../../assets/icons/arrow.svg';
+import {AppState} from '../../redux';
 
-export function Home(props: StackHeaderProps) {
+export function _Home(props: StackHeaderProps) {
   const drawerRef: any = useRef();
   const openDrawer = () => {
     drawerRef.current.open();
   };
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
 
   const registerNewItemNavigate = () => {
     props.navigation.navigate('item-form-register');
@@ -107,3 +114,9 @@ export function Home(props: StackHeaderProps) {
     </ContainerScreen>
   );
 }
+
+const mapStateToProps = (state: AppState) => ({
+  animalStateList: state.animalList.list,
+});
+
+export const Home = connect(mapStateToProps)(_Home);
