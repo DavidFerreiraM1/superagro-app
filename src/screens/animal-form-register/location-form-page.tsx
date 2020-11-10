@@ -5,17 +5,17 @@ import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from './form-context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
-import {TextInputForm} from './text-input-form';
+import {TextInputForm} from '../../components/dashboard';
 
-export function TrackingCodeFormPage(props: StackHeaderProps) {
+export function LocationFormPage(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Informe o código de restreamento"
-          value={values.codigoRastreamento}
-          onChangeText={(v) => setFormValues('codigoRastreamento', v)}
+          label="Informe o alojamento do animal"
+          value={values.localizacao}
+          onChangeText={(v) => setFormValues('localizacao', v)}
         />
       </ContentScreen>
       <BottomControl
@@ -23,7 +23,7 @@ export function TrackingCodeFormPage(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('phase-production');
+          props.navigation.navigate('birth-date');
         }}
       />
     </FormPage>

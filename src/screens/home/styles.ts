@@ -39,18 +39,6 @@ export const HeaderRightElement = Styled.View`
   align-items: flex-end;
 `;
 
-export const ProfileBackground = Styled.View`
-  height: 56px;
-  width: 56px;
-  top: 8px;
-  border-width: 2px;
-  border-color: ${DefaultColors['brand-secondary'].main};
-  border-radius: 36px;
-  margin-horizontal: 16px;
-  background: #FFFFFF;
-  elevation: 4;
-`;
-
 export const ProfileName = Styled.Text`
   font-family: Barlow-Bold;
   font-size: 16px;
@@ -194,4 +182,43 @@ export const BottomBox = Styled.View`
   padding-vertical: 8px;
   position: absolute;
   bottom: 0;
+`;
+
+export const CloseDrawerButton = Styled.TouchableOpacity`
+  height: 64px;
+  width: 100%;
+  align-items: flex-end;
+  padding-horizontal: 16px;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+`;
+
+export const DrawerAreaProfilePhoto = Styled.View`
+  width: 100%;
+  align-items: flex-end;
+  padding-horizontal: 0px;
+  justify-content: center;
+  margin-vertical: 24px;
+`;
+
+export const DrawerPropertyOptionBox = Styled.View`
+  width: 100%;
+  padding-horizontal: 16px;
+  padding-vertical: 16px;
+`;
+
+export const DrawerPropertyOption = Styled.TouchableOpacity`
+  height: 48px;
+  width: 100%;
+  align-items: flex-end;
+  padding-horizontal: 8px;
+  justify-content: center;
+`;
+
+export const DrawerPropertyOptionText = Styled.Text`
+  font-size: 16px;
+  font-family: OpenSans-Medium;
+  color: #FFFFFF;
+  text-align: center;
 `;

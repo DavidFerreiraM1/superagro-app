@@ -5,17 +5,17 @@ import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from './form-context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
-import {TextInputForm} from './text-input-form';
+import {TextInputForm} from '../../components/dashboard';
 
-export function SpeciesFormPage(props: StackHeaderProps) {
+export function TrackingCodeFormPage(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Qual a espécie (raça) deste animal?"
-          value={values.raca}
-          onChangeText={(v) => setFormValues('raca', v)}
+          label="Informe o código de restreamento"
+          value={values.codigoRastreamento}
+          onChangeText={(v) => setFormValues('codigoRastreamento', v)}
         />
       </ContentScreen>
       <BottomControl
@@ -23,7 +23,7 @@ export function SpeciesFormPage(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('tracking-code');
+          props.navigation.navigate('phase-production');
         }}
       />
     </FormPage>

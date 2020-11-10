@@ -5,17 +5,17 @@ import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from './form-context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
-import {TextInputForm} from './text-input-form';
+import {TextInputForm} from '../../components/dashboard';
 
-export function IntracePlantelFormPage(props: StackHeaderProps) {
+export function SpeciesFormPage(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Quando ocorreu a entrada deste animal?"
-          value={values.entradaPlantel}
-          onChangeText={(v) => setFormValues('entradaPlantel', v)}
+          label="Qual a espécie (raça) deste animal?"
+          value={values.raca}
+          onChangeText={(v) => setFormValues('raca', v)}
         />
       </ContentScreen>
       <BottomControl
@@ -23,7 +23,7 @@ export function IntracePlantelFormPage(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('animal-weight');
+          props.navigation.navigate('tracking-code');
         }}
       />
     </FormPage>

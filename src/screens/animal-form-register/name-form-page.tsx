@@ -5,25 +5,25 @@ import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from './form-context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
-import {TextInputForm} from './text-input-form';
+import {TextInputForm} from '../../components/dashboard';
 
-export function BirthDateFormPage(props: StackHeaderProps) {
+export function NameFormPage(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Informe a data de nascimento"
-          value={values.dataNascimento}
-          onChangeText={(v) => setFormValues('dataNascimento', v)}
+          label="Insira um nome para este item"
+          value={values.nome}
+          onChangeText={(v) => setFormValues('nome', v)}
         />
       </ContentScreen>
       <BottomControl
         back={() => {
-          props.navigation.goBack();
+          props.navigation.navigate('animal-type');
         }}
         next={() => {
-          props.navigation.navigate('intrace-plantel');
+          props.navigation.navigate('location');
         }}
       />
     </FormPage>

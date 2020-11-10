@@ -105,20 +105,6 @@ export const InputBox = Styled.ScrollView`
   width: 100%;
 `;
 
-export const InputLabel = Styled.Text`
-  color: #542A00;
-  font-family: Barlow-SemiBold;
-  font-size: 20px;
-  padding-horizontal: 12px;
-  padding-vertical: 16px;
-`;
-
-export const TextInputCustom = Styled(TextInput)`
-  color: #FFFFFF;
-  font-size: 18px;
-  padding-left: 24px;
-`;
-
 export const BtnSelectCustom = Styled(BtnSelect)`
   border-radius: 8px;
   padding-horizontal: 4px;
