@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, {useEffect, useRef} from 'react';
 import {Dispatch} from 'redux';
@@ -29,16 +30,23 @@ import {
 } from './styles';
 import ArrowIcon from '../../assets/icons/arrow.svg';
 import {AppState} from '../../redux';
+import {IAnimal} from '../../core/interfaces';
 
-export function _Home(props: StackHeaderProps) {
+interface StateProps {
+  animalList: IAnimal[];
+}
+
+type Props = StateProps & StackHeaderProps;
+
+export function _Home(props: Props) {
   const drawerRef: any = useRef();
   const openDrawer = () => {
     drawerRef.current.open();
   };
 
   useEffect(() => {
-    console.log(props);
-  }, []);
+    props.navigation.addListener('focus', () => console.log(props));
+  }, [props.navigation]);
 
   const registerNewItemNavigate = () => {
     props.navigation.navigate('item-form-register');
@@ -61,18 +69,17 @@ export function _Home(props: StackHeaderProps) {
           </BoxSelect>
         </SelectContainer>
         <ListBox contentContainerStyle={{paddingBottom: 88}}>
-          <ItemBox
-            onNavigationPress={() =>
-              props.navigation.navigate('animal-info-page')
-            }
-            removeItemPress={() => {}}
-          />
-          <ItemBox
-            onNavigationPress={() =>
-              props.navigation.navigate('animal-info-page')
-            }
-            removeItemPress={() => {}}
-          />
+          {props.animalList.map((m, key) => {
+            return (
+              <ItemBox
+                key={key}
+                onNavigationPress={() =>
+                  props.navigation.navigate('animal-info-page')
+                }
+                removeItemPress={() => {}}
+              />
+            );
+          })}
         </ListBox>
         <BottomBox>
           <Button
@@ -116,7 +123,7 @@ export function _Home(props: StackHeaderProps) {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  animalStateList: state.animalList.list,
+  animalList: state.animalList.list,
 });
 
 export const Home = connect(mapStateToProps)(_Home);
