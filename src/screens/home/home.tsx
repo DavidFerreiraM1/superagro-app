@@ -86,7 +86,11 @@ export function Home(props: StackHeaderProps) {
                 Usuário
               </DrawerPropertyOptionText>
             </DrawerPropertyOption>
-            <DrawerPropertyOption>
+            <DrawerPropertyOption
+              onPress={() => {
+                drawerRef.current.close();
+                props.navigation.navigate('farm-info-page');
+              }}>
               <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
             </DrawerPropertyOption>
           </DrawerPropertyOptionBox>
