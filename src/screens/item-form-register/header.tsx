@@ -7,7 +7,6 @@ import {
   BackButtonArea,
   HeaderContent,
   HeaderRoot,
-  NewItemDescription,
   TitleArea,
   TitleBox,
   TitleImage,
