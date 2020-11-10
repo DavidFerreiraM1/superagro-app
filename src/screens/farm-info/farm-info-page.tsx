@@ -40,6 +40,14 @@ export function FarmInfoPage(props: StackHeaderProps) {
             propertyName="Nome da granja"
             propertyValue="Granja Comary"
           />
+          <FieldPropertyInfo
+            propertyName="Cidade"
+            propertyValue="Rio de Janeiro"
+          />
+          <FieldPropertyInfo
+            propertyName="Estado"
+            propertyValue="Rio de Janeiro"
+          />
         </FieldBox>
       </ContentScreen>
     </ContainerScreen>
