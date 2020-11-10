@@ -54,10 +54,18 @@ export function Home(props: StackHeaderProps) {
           </BoxSelect>
         </SelectContainer>
         <ListBox contentContainerStyle={{paddingBottom: 88}}>
-          <ItemBox />
-          <ItemBox />
-          <ItemBox />
-          <ItemBox />
+          <ItemBox
+            onNavigationPress={() =>
+              props.navigation.navigate('animal-info-page')
+            }
+            removeItemPress={() => {}}
+          />
+          <ItemBox
+            onNavigationPress={() =>
+              props.navigation.navigate('animal-info-page')
+            }
+            removeItemPress={() => {}}
+          />
         </ListBox>
         <BottomBox>
           <Button

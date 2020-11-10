@@ -12,11 +12,16 @@ import {
   TrashIconImage,
 } from './styles';
 
-export function ItemBox() {
+interface Props {
+  onNavigationPress: () => void;
+  removeItemPress: () => void;
+}
+
+export function ItemBox(props: Props) {
   return (
-    <ItemContainer>
+    <ItemContainer onPress={props.onNavigationPress}>
       <ColumnBoxRemove>
-        <ColumnBtnRemove>
+        <ColumnBtnRemove onPress={props.removeItemPress}>
           <TrashIconImage source={TrashIcon} />
         </ColumnBtnRemove>
       </ColumnBoxRemove>
