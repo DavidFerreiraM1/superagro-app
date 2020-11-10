@@ -5,6 +5,7 @@ import {IAnimal} from '../../../core/interfaces';
  * Action type
  */
 export enum AnimalListType {
+  UPDATE_LIST_REQUEST = '@animal/UPDATE_LIST_REQUEST',
   UPDATE_LIST = '@animal/UPDATE_LIST',
 }
 

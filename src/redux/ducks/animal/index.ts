@@ -10,7 +10,9 @@ const reducer: Reducer<AnimalListState> = (
 ): AnimalListState => {
   switch (action.type) {
     case AnimalListType.UPDATE_LIST:
-      return {...state, list: action.payload};
+      return {list: action.payload.data};
+    case AnimalListType.UPDATE_LIST_REQUEST:
+      return state;
     default:
       return state;
   }
