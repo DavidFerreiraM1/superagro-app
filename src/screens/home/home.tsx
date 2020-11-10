@@ -78,7 +78,13 @@ export function Home(props: StackHeaderProps) {
           </DrawerAreaProfilePhoto>
           <DrawerPropertyOptionBox>
             <DrawerPropertyOption>
-              <DrawerPropertyOptionText>Usuário</DrawerPropertyOptionText>
+              <DrawerPropertyOptionText
+                onPress={() => {
+                  drawerRef.current.close();
+                  props.navigation.navigate('user-info-page');
+                }}>
+                Usuário
+              </DrawerPropertyOptionText>
             </DrawerPropertyOption>
             <DrawerPropertyOption>
               <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
