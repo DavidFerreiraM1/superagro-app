@@ -46,7 +46,7 @@ export function _Home(props: Props) {
   const navigateToAnimalInfoScreen = (id?: string) => {
     props.navigation.navigate('animal-info-page', {
       screen: 'list-page',
-      params: {AnimalId: id},
+      params: {animalId: id},
     });
   };
 
