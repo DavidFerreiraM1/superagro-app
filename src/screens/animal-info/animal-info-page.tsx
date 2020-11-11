@@ -33,6 +33,7 @@ const headerIconImage: any = {
 
 export function AnimalInfoPage(props: StackScreenProps<any>) {
   const [data, setData] = useState({
+    id: '',
     tipoAnimal: 'swine',
     nome: '',
     localizacao: '',
@@ -47,10 +48,12 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
   });
 
   useEffect(() => {
-    const getDataOnRealm = async () => {
-      setData(await getAnimalOnRealm(props.route.params?.animalId));
-    };
-    getDataOnRealm();
+    props.navigation.addListener('focus', () => {
+      const getDataOnRealm = async () => {
+        setData(await getAnimalOnRealm(props.route.params?.animalId));
+      };
+      getDataOnRealm();
+    });
   }, []);
 
   const updateInfoNavigate = (
@@ -59,6 +62,7 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
     animalValue: string,
   ) => {
     props.navigation.navigate('update-value-text-page', {
+      animalId: props.route.params?.animalId,
       label,
       animalKey,
       animalType: data.tipoAnimal,
@@ -73,6 +77,7 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
     animalValue: string,
   ) => {
     props.navigation.navigate(url, {
+      animalId: props.route.params?.animalId,
       label,
       animalKey,
       animalType: data.tipoAnimal,

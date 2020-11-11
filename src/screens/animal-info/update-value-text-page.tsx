@@ -1,6 +1,8 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
+import {bindActionCreators, Dispatch} from 'redux';
+import {connect} from 'react-redux';
 import {BtnContentText, Button, ContainerScreen} from '../../components';
 import {
   BackButton,
@@ -22,7 +24,8 @@ import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
 import {DefaultColors} from '../../design-tokens';
-
+import {updateDataOnRealm} from './animal-info-service';
+import * as animalActions from '../../redux/ducks/animal/action';
 /**
  * Precisa receber o valor da chava para ser alterada no realm
  * Chave de objeto para pegar imagem do icone no topo da tela
@@ -50,12 +53,26 @@ const topImages: any = {
     style: {height: 42, width: 45},
   },
 };
-export function UpdateValueTextPage(props: StackScreenProps<any>) {
+
+interface ActionsProps {
+  changeAnimalValue(param: any): any;
+}
+type Props = StackScreenProps<any> & ActionsProps;
+
+export function _UpdateValueTextPage(props: Props) {
   const [value, setValue] = useState('');
   useEffect(() => {
-    console.log(props.route.params);
     setValue(props.route.params?.animalValue);
   }, []);
+
+  const updateSubmit = async () => {
+    props.changeAnimalValue({
+      id: props.route.params?.animalId,
+      animalKey: props.route.params?.animalKey,
+      value,
+    });
+    props.navigation.goBack();
+  };
 
   return (
     <ContainerScreen>
@@ -96,7 +113,10 @@ export function UpdateValueTextPage(props: StackScreenProps<any>) {
           </Button>
         </ButtonSideBox>
         <ButtonSideBox>
-          <Button variant="contained" color="action-primary">
+          <Button
+            variant="contained"
+            color="action-primary"
+            onPress={updateSubmit}>
             <BtnContentText color="action-primary">Concluir</BtnContentText>
           </Button>
         </ButtonSideBox>
@@ -104,3 +124,11 @@ export function UpdateValueTextPage(props: StackScreenProps<any>) {
     </ContainerScreen>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(animalActions, dispatch);
+
+export const UpdateValueTextPage = connect(
+  null,
+  mapDispatchToProps,
+)(_UpdateValueTextPage);
