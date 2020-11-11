@@ -40,6 +40,7 @@ export function _Home(props: Props) {
   };
 
   const registerNewItemNavigate = () => {
+    drawerRef.current.close();
     props.navigation.navigate('item-form-register');
   };
 

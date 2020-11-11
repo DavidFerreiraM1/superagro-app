@@ -53,9 +53,32 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
     getDataOnRealm();
   }, []);
 
-  useEffect(() => {
-    console.log('Data Alterou', data);
-  }, [data]);
+  const updateInfoNavigate = (
+    label: string,
+    animalKey: string,
+    animalValue: string,
+  ) => {
+    props.navigation.navigate('update-value-text-page', {
+      label,
+      animalKey,
+      animalType: data.tipoAnimal,
+      animalValue,
+    });
+  };
+
+  const updateSelectNavigate = (
+    url: string,
+    label: string,
+    animalKey: string,
+    animalValue: string,
+  ) => {
+    props.navigation.navigate(url, {
+      label,
+      animalKey,
+      animalType: data.tipoAnimal,
+      animalValue,
+    });
+  };
 
   return (
     <ContainerScreen>
@@ -79,37 +102,122 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
       </HeaderRoot>
       <ContentScreen>
         <FieldPropertyInfo
+          onPress={() =>
+            updateSelectNavigate(
+              'animal-category-update-page',
+              '',
+              'tipoAnimal',
+              data.tipoAnimal,
+            )
+          }
           propertyName="Tipo de animal"
           propertyValue={headerIconImage[data.tipoAnimal].text}
         />
-        <FieldPropertyInfo propertyName="Nome" propertyValue={data.nome} />
-        <FieldPropertyInfo propertyName="Localização" propertyValue="Sala 1" />
         <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate('Alterar nome do animal', 'nome', data.nome)
+          }
+          propertyName="Nome"
+          propertyValue={data.nome}
+        />
+        <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate(
+              'Alterar localização do animal',
+              'localizacao',
+              data.localizacao,
+            )
+          }
+          propertyName="Localização"
+          propertyValue={data.localizacao}
+        />
+        <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate(
+              'Alterar data de nascimento',
+              'dataNascimento',
+              data.dataNascimento,
+            )
+          }
           propertyName="Data de nascimento"
           propertyValue={data.dataNascimento}
         />
         <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate(
+              'Alterar entrada no plantel',
+              'entradaPlantel',
+              data.entradaPlantel,
+            )
+          }
           propertyName="Entrada no plantel"
           propertyValue={data.entradaPlantel}
         />
         <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate(
+              'Alterar Peso do item',
+              'pesoCompra',
+              data.pesoCompra,
+            )
+          }
           propertyName="Peso na compra"
           propertyValue={data.pesoCompra}
         />
-        <FieldPropertyInfo propertyName="Raça" propertyValue="Porco Rosa" />
         <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate('Alterar raça do animal', 'raca', data.raca)
+          }
+          propertyName="Raça"
+          propertyValue={data.raca}
+        />
+        <FieldPropertyInfo
+          onPress={() =>
+            updateInfoNavigate(
+              'Alterar Código de rastreamento',
+              'codigoRastreamento',
+              data.codigoRastreamento,
+            )
+          }
           propertyName="Código de rastreamento"
           propertyValue={data.codigoRastreamento}
         />
         <FieldPropertyInfo
+          onPress={() =>
+            updateSelectNavigate(
+              'production-phase-update-page',
+              '',
+              'faseProducao',
+              data.faseProducao,
+            )
+          }
           propertyName="Fase de produção"
-          propertyValue="CRE"
+          propertyValue={data.faseProducao}
         />
         <FieldPropertyInfo
+          onPress={() =>
+            updateSelectNavigate(
+              'farm-type-update-page',
+              '',
+              'tipoGranja',
+              data.tipoGranja,
+            )
+          }
           propertyName="Tipo de granja"
           propertyValue={data.tipoGranja}
         />
-        <FieldPropertyInfo propertyName="Status" propertyValue="Vendido" />
+        <FieldPropertyInfo
+          onPress={() =>
+            updateSelectNavigate(
+              'animal-status-update-page',
+              '',
+              'statusAnimal',
+              data.statusAnimal,
+            )
+          }
+          propertyName="Status"
+          propertyValue={data.statusAnimal}
+        />
       </ContentScreen>
     </ContainerScreen>
   );

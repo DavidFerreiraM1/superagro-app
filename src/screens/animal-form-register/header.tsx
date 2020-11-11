@@ -19,6 +19,7 @@ import {FormRegisterContext} from '../../context';
  * pig - height: 29, width: 43
  * poultry - height: 42, width: 45
  */
+
 const topImages: any = {
   '': {
     url: PigImage,
