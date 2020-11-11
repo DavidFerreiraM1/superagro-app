@@ -1,5 +1,5 @@
 import {StackHeaderProps} from '@react-navigation/stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {ContainerScreen} from '../../components';
 import {
@@ -17,6 +17,10 @@ import {DefaultColors} from '../../design-tokens';
 const defaultColor = DefaultColors['brand-primary'].main;
 
 export function AnimalInfoPage(props: StackHeaderProps) {
+  useEffect(() => {
+    console.log(props?.route);
+  }, []);
+
   return (
     <ContainerScreen>
       <StatusBar backgroundColor={defaultColor} barStyle="light-content" />

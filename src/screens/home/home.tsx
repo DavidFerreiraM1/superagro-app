@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-empty-function */
+import 'react-native-gesture-handler';
 import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
@@ -42,6 +43,14 @@ export function _Home(props: Props) {
     props.navigation.navigate('item-form-register');
   };
 
+  const sendParams = (param: any) => {
+    console.log(param);
+    return props.navigation.navigate('client', {
+      screen: 'animal-info-page',
+      params: {id: param},
+    });
+  };
+
   return (
     <ContainerScreen>
       <StatusBar
@@ -63,9 +72,10 @@ export function _Home(props: Props) {
             return (
               <ItemBox
                 key={key}
-                onNavigationPress={() =>
-                  props.navigation.navigate('animal-info-page')
-                }
+                name={m.nome}
+                specie={m.raca}
+                status={m.statusAnimal}
+                onNavigationPress={() => sendParams(m.id)}
                 removeItemPress={() => {}}
               />
             );

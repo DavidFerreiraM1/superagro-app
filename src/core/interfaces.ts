@@ -1,4 +1,5 @@
 export interface IAnimal {
+  id?: string;
   tipoAnimal: string;
   nome: string;
   localizacao: string;
