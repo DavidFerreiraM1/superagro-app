@@ -11,7 +11,7 @@ import {SpeciesFormPage} from './species-form-page';
 import {TrackingCodeFormPage} from './tracking-code-form-page';
 import {PhaseProductionFormPage} from './phase-production-form-page';
 import {AnimalStatusFormPage} from './animal-status-input-form-page';
-import {FormRegister} from './form-context';
+import {FormRegister} from '../../context';
 import {RegisterFinalStaging} from './register-final-staging';
 
 const StackFormNavigation = createStackNavigator();
