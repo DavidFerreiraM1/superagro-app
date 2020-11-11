@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, {useEffect, useRef} from 'react';
-import {Dispatch} from 'redux';
+import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
@@ -12,7 +11,7 @@ import {
   Drawer,
 } from '../../components';
 import {DefaultColors} from '../../design-tokens';
-import {ButtonSelectCategory, ProfilePhoto} from '../../components/dashboard';
+import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -22,15 +21,10 @@ import {
   ListBox,
   BoxSelect,
   SelectContainer,
-  CloseDrawerButton,
-  DrawerAreaProfilePhoto,
-  DrawerPropertyOptionBox,
-  DrawerPropertyOption,
-  DrawerPropertyOptionText,
 } from './styles';
-import ArrowIcon from '../../assets/icons/arrow.svg';
 import {AppState} from '../../redux';
 import {IAnimal} from '../../core/interfaces';
+import {ContentDrawer} from './content-drawer';
 
 interface StateProps {
   animalList: IAnimal[];
@@ -43,10 +37,6 @@ export function _Home(props: Props) {
   const openDrawer = () => {
     drawerRef.current.open();
   };
-
-  useEffect(() => {
-    props.navigation.addListener('focus', () => console.log(props));
-  }, [props.navigation]);
 
   const registerNewItemNavigate = () => {
     props.navigation.navigate('item-form-register');
@@ -83,39 +73,28 @@ export function _Home(props: Props) {
         </ListBox>
         <BottomBox>
           <Button
-            onPress={registerNewItemNavigate}
             variant="contained"
-            color="action-primary">
+            color="action-primary"
+            onPress={registerNewItemNavigate}>
             <BtnContentText color="action-primary">ADICIONAR</BtnContentText>
           </Button>
         </BottomBox>
       </BackgroundScreen>
       <>
         <Drawer ref={drawerRef}>
-          <CloseDrawerButton onPress={() => drawerRef.current.close()}>
-            <ArrowIcon height={24} width={24} />
-          </CloseDrawerButton>
-          <DrawerAreaProfilePhoto>
-            <ProfilePhoto disabled />
-          </DrawerAreaProfilePhoto>
-          <DrawerPropertyOptionBox>
-            <DrawerPropertyOption>
-              <DrawerPropertyOptionText
-                onPress={() => {
-                  drawerRef.current.close();
-                  props.navigation.navigate('user-info-page');
-                }}>
-                Usuário
-              </DrawerPropertyOptionText>
-            </DrawerPropertyOption>
-            <DrawerPropertyOption
-              onPress={() => {
-                drawerRef.current.close();
-                props.navigation.navigate('farm-info-page');
-              }}>
-              <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
-            </DrawerPropertyOption>
-          </DrawerPropertyOptionBox>
+          <ContentDrawer
+            onPressDrawerClose={() => {
+              drawerRef.current.close();
+            }}
+            onPressFarmInfoNavigate={() => {
+              drawerRef.current.close();
+              props.navigation.navigate('farm-info-page');
+            }}
+            onPressUserInfoNavigate={() => {
+              drawerRef.current.close();
+              props.navigation.navigate('user-info-page');
+            }}
+          />
         </Drawer>
       </>
     </ContainerScreen>
