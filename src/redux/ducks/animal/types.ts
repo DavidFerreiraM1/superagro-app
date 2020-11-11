@@ -7,6 +7,7 @@ import {IAnimal} from '../../../core/interfaces';
 export enum AnimalListType {
   UPDATE_LIST_REQUEST = '@animal/UPDATE_LIST_REQUEST',
   UPDATE_LIST = '@animal/UPDATE_LIST',
+  UPDATE_VALUE = '@animal/UPDATE_VALUE',
 }
 
 export interface AnimalListState {

@@ -3,10 +3,11 @@
 import {all, takeLatest} from 'redux-saga/effects';
 
 import {AnimalListType} from './animal/types';
-import {updateAnimalListState} from './animal/sagas';
+import {updateAnimalListState, changeAnimalValue} from './animal/sagas';
 
 export default function* rootSagas() {
   return yield all([
     takeLatest(AnimalListType.UPDATE_LIST_REQUEST, updateAnimalListState),
+    takeLatest(AnimalListType.UPDATE_VALUE, changeAnimalValue),
   ]);
 }
