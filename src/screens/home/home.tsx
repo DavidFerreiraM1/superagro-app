@@ -44,10 +44,10 @@ export function _Home(props: Props) {
   };
 
   const sendParams = (param: any) => {
-    console.log(param);
-    return props.navigation.navigate('client', {
-      screen: 'animal-info-page',
-      params: {id: param},
+    console.log('PARAM', param);
+    props.navigation.navigate('animal-info-page', {
+      screen: 'list-page',
+      params: {id: '123'},
     });
   };
 

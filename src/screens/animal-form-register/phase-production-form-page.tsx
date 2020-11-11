@@ -8,7 +8,7 @@ import { Keyboard } from 'react-native';
 import {ContentScreen} from './styles';
 
 import {FormPage} from './form-page';
-import {FormRegisterContext} from './form-context';
+import {FormRegisterContext} from '../../context';
 import { PhaseProductionForm } from '../../components/dashboard';
 
 export function PhaseProductionFormPage(props: StackHeaderProps) {

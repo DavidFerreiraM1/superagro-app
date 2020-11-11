@@ -18,7 +18,7 @@ const defaultColor = DefaultColors['brand-primary'].main;
 
 export function AnimalInfoPage(props: StackHeaderProps) {
   useEffect(() => {
-    console.log(props?.route);
+    // console.log(props.navigation.);
   }, []);
 
   return (

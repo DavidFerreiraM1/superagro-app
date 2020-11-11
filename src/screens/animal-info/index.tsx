@@ -10,7 +10,7 @@ export function AnimalInfoNavigation() {
     <Navigation.Navigator initialRouteName="animal-info-page">
       <Navigation.Screen
         options={{header: headerNull}}
-        name="animal-info-page"
+        name="list-page"
         component={AnimalInfoPage}
       />
     </Navigation.Navigator>

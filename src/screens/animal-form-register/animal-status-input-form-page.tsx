@@ -4,7 +4,7 @@ import {StackHeaderProps} from '@react-navigation/stack';
 import {ContentScreen} from './styles';
 import {FormPage} from './form-page';
 import {AnimalStatusForm} from '../../components/dashboard';
-import {FormRegisterContext} from './form-context';
+import {FormRegisterContext} from '../../context';
 
 export function AnimalStatusFormPage(props: StackHeaderProps) {
   const {setFormValues} = useContext(FormRegisterContext);

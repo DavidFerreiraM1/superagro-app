@@ -1,1 +1,1 @@
-export {FormRegister} from './animal-form-context';
+export {FormRegister, FormRegisterContext} from './animal-form-context';
