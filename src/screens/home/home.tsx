@@ -43,11 +43,10 @@ export function _Home(props: Props) {
     props.navigation.navigate('item-form-register');
   };
 
-  const sendParams = (param: any) => {
-    console.log('PARAM', param);
+  const navigateToAnimalInfoScreen = (id?: string) => {
     props.navigation.navigate('animal-info-page', {
       screen: 'list-page',
-      params: {id: '123'},
+      params: {AnimalId: id},
     });
   };
 
@@ -75,7 +74,7 @@ export function _Home(props: Props) {
                 name={m.nome}
                 specie={m.raca}
                 status={m.statusAnimal}
-                onNavigationPress={() => sendParams(m.id)}
+                onNavigationPress={() => navigateToAnimalInfoScreen(m.id)}
                 removeItemPress={() => {}}
               />
             );
