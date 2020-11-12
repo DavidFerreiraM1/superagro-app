@@ -1,9 +1,9 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StatusBar} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {BtnContentText, Button, ContainerScreen} from '../../components';
+import {ContainerScreen} from '../../components';
 import {
   BackButton,
   BackButtonArea,
@@ -11,14 +11,7 @@ import {
   HeaderRoot,
   PhaseProductionForm,
 } from '../../components/dashboard';
-import {
-  BottomControlContainer,
-  ButtonSideBox,
-  ContentScreen,
-  TitleArea,
-  TitleBox,
-  TitleImage,
-} from './styles';
+import {ContentScreen, TitleArea, TitleBox, TitleImage} from './styles';
 
 import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
