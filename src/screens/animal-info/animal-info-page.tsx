@@ -12,7 +12,7 @@ import {
 } from '../../components/dashboard';
 import {ContentScreen, FarmIconBox, FarmIconIMage} from './styles';
 import ArrowBack from '../../assets/icons/arrow.svg';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {getAnimalOnRealm} from './animal-info-service';
 
 import PigImage from '../../assets/images/pig.png';

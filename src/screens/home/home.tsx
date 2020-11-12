@@ -12,7 +12,7 @@ import {
   ContainerScreen,
   Drawer,
 } from '../../components';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';

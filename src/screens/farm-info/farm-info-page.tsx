@@ -11,7 +11,7 @@ import {
 import ArrowBack from '../../assets/icons/arrow.svg';
 import {ContainerScreen} from '../../components';
 import {ContentScreen, FarmIconBox, FarmIconIMage, FieldBox} from './styles';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import FarmImage from '../../assets/images/farm-white.png';
 
 const defaultColor = DefaultColors['brand-primary'].main;

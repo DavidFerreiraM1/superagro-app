@@ -3,7 +3,7 @@ import {ActivityIndicator} from 'react-native';
 import {StackHeaderProps} from '@react-navigation/stack';
 import {Dispatch, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {FormRegisterContext} from '../../context';
 import {ContentScreen, FeedbackText} from './styles';
 import * as animalActions from '../../redux/ducks/animal/action';

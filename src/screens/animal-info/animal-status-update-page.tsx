@@ -23,7 +23,7 @@ import {
 import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import * as animalActions from '../../redux/ducks/animal/action';
 
 const topImages: any = {

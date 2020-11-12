@@ -22,7 +22,7 @@ import {
   Title,
 } from './styles';
 import ImageApp from '../../assets/images/image-app.png';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 
 export function LoadLoginPage() {
   const [renderModal, setRenderModal] = useState(false);

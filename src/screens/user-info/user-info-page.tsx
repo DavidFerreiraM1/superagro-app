@@ -11,7 +11,7 @@ import {
   ProfilePhoto,
 } from '../../components/dashboard';
 import ArrowBack from '../../assets/icons/arrow.svg';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {ContentScreen, FieldBox} from './styles';
 
 const defaultColor = DefaultColors['brand-primary'].main;

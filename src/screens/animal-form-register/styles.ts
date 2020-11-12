@@ -1,6 +1,6 @@
 import Styled from 'styled-components/native';
 import {TextInput} from 'react-native';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {BtnSelect} from '../../components';
 
 export const ContentScreen = Styled.View`

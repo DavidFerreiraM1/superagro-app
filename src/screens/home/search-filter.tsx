@@ -4,7 +4,7 @@ import {
   TextInput as TextInputBackground,
   TextInputStyled,
 } from '../../components';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {FilterBackgroundBox, SearchInputContent} from './styles';
 
 export function SearchFilter() {

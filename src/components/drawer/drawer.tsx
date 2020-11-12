@@ -1,6 +1,6 @@
 import React, {forwardRef, useImperativeHandle} from 'react';
 import {Animated, Dimensions, StatusBar} from 'react-native';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {DrawerRoot} from './styles';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;
