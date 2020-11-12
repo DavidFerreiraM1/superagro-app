@@ -14,9 +14,9 @@ export function FormConfirmPassword(props: StackHeaderProps) {
 
   const submit = () => {
     if (value === values.password) {
-      // continua
+      props.navigation.navigate('form-farm-name');
     } else {
-      setError('As senhas não batem');
+      setError('As senhas não são correspondentes');
     }
   };
 

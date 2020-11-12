@@ -1,8 +1,8 @@
-export const AnimalItem = {
+export const Farm = {
   name: 'Farm',
   properties: {
     id: 'string?',
-    nome: 'string',
+    name: 'string',
     cnpj: 'string?',
     ownerId: 'string', // usuário
     active: 'bool',

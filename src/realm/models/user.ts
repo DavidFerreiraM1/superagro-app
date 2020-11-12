@@ -1,8 +1,8 @@
-export const AnimalItem = {
+export const User = {
   name: 'User',
   properties: {
     id: 'string?',
-    userName: 'string',
+    username: 'string',
     cpf: 'string',
     password: 'string',
     isLogged: 'bool',

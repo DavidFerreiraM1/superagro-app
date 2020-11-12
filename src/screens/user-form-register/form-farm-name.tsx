@@ -7,15 +7,15 @@ import {ContentScreen} from './styles';
 import {TextInputForm} from '../../components/dashboard';
 import {BottomControl} from './bottom-control';
 
-export function FormName(props: StackHeaderProps) {
+export function FormFarmName(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(UserFormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Informe um nome de usuário"
-          value={values.username}
-          onChangeText={(v) => setFormValues('username', v)}
+          label="Informe um nome para sua granja"
+          value={values.farmName}
+          onChangeText={(v) => setFormValues('farmName', v)}
         />
       </ContentScreen>
       <BottomControl
@@ -23,7 +23,7 @@ export function FormName(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('form-cpf');
+          props.navigation.navigate('form-farm-cnpj');
         }}
       />
     </FormPage>

@@ -4,18 +4,18 @@ import {StackHeaderProps} from '@react-navigation/stack';
 import {Dispatch, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {DefaultColors} from '../../styles-utils';
-import {FormRegisterContext} from '../../context';
+import {UserFormRegisterContext} from '../../context';
 import {ContentScreen, FeedbackText} from './styles';
-import * as animalActions from '../../redux/ducks/animal/action';
+import * as userFarmActions from '../../redux/ducks/user/action';
 
 interface DispatchProps {
-  updateAnimalRequest: (list: any) => void;
+  setUserlogRequest(values: any): void;
 }
 
 type Props = StackHeaderProps & DispatchProps;
 
 export function _RegisterFinalStaging(props: Props) {
-  const {values} = useContext(FormRegisterContext);
+  const {values} = useContext(UserFormRegisterContext);
   const [feedback, setFeedback] = useState({
     activityIndicator: true,
     text: 'Estamos guardando os dados localmente!',
@@ -23,7 +23,7 @@ export function _RegisterFinalStaging(props: Props) {
 
   useEffect(() => {
     const saveDataOnRealm = async () => {
-      props.updateAnimalRequest(values);
+      props.setUserlogRequest(values);
       setTimeout(
         () =>
           setFeedback({
@@ -32,7 +32,11 @@ export function _RegisterFinalStaging(props: Props) {
           }),
         2000,
       );
-      setTimeout(() => props.navigation.navigate('home'), 3000);
+
+      setTimeout(
+        () => props.navigation.replace('client', {screen: 'home'}),
+        3000,
+      );
     };
 
     saveDataOnRealm();
@@ -57,7 +61,7 @@ export function _RegisterFinalStaging(props: Props) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(animalActions, dispatch);
+  bindActionCreators(userFarmActions, dispatch);
 
 export const RegisterFinalStaging = connect(
   null,

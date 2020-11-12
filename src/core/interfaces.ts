@@ -23,7 +23,7 @@ export interface IUser {
 
 export interface IFarm {
   id?: string;
-  nome: string;
+  name: string;
   cnpj: string;
   ownerId: string; // usuário
   active: boolean;
