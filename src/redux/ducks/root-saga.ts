@@ -3,11 +3,16 @@
 import {all, takeLatest} from 'redux-saga/effects';
 
 import {AnimalListType} from './animal/types';
-import {updateAnimalListState, changeAnimalValue} from './animal/sagas';
+import {
+  updateAnimalListState,
+  changeAnimalValue,
+  insertRealmDataOnState,
+} from './animal/sagas';
 
 export default function* rootSagas() {
   return yield all([
     takeLatest(AnimalListType.UPDATE_LIST_REQUEST, updateAnimalListState),
     takeLatest(AnimalListType.UPDATE_VALUE, changeAnimalValue),
+    takeLatest(AnimalListType.INSERT_REALM_ON_STATE, insertRealmDataOnState),
   ]);
 }

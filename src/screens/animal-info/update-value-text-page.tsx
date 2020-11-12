@@ -24,18 +24,8 @@ import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
 import {DefaultColors} from '../../design-tokens';
-import {updateDataOnRealm} from './animal-info-service';
 import * as animalActions from '../../redux/ducks/animal/action';
-/**
- * Precisa receber o valor da chava para ser alterada no realm
- * Chave de objeto para pegar imagem do icone no topo da tela
- * params = {
- *  label: string;
- *  animalKey: string;
- *  animalType: string;
- *  animalValue: string;
- * }
- */
+
 const topImages: any = {
   '': {
     url: PigImage,
@@ -57,9 +47,10 @@ const topImages: any = {
 interface ActionsProps {
   changeAnimalValue(param: any): any;
 }
+
 type Props = StackScreenProps<any> & ActionsProps;
 
-export function _UpdateValueTextPage(props: Props) {
+function _UpdateValueTextPage(props: Props) {
   const [value, setValue] = useState('');
   useEffect(() => {
     setValue(props.route.params?.animalValue);

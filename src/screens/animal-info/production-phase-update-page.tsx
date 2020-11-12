@@ -1,21 +1,20 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators, Dispatch} from 'redux';
 import {BtnContentText, Button, ContainerScreen} from '../../components';
 import {
-  AnimalCategoryForm,
   BackButton,
   BackButtonArea,
   HeaderContent,
   HeaderRoot,
   PhaseProductionForm,
-  TextInputForm,
 } from '../../components/dashboard';
 import {
   BottomControlContainer,
   ButtonSideBox,
   ContentScreen,
-  ContentScreenSencondary,
   TitleArea,
   TitleBox,
   TitleImage,
@@ -25,17 +24,8 @@ import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
 import {DefaultColors} from '../../design-tokens';
+import * as animalActions from '../../redux/ducks/animal/action';
 
-/**
- * Precisa receber o valor da chava para ser alterada no realm
- * Chave de objeto para pegar imagem do icone no topo da tela
- * params = {
- *  label: string;
- *  animalKey: string;
- *  animalType: string;
- *  animalValue: string;
- * }
- */
 const topImages: any = {
   '': {
     url: PigImage,
@@ -53,12 +43,22 @@ const topImages: any = {
     style: {height: 42, width: 45},
   },
 };
-export function ProductionPhaseUpdatePage(props: StackScreenProps<any>) {
-  const [value, setValue] = useState('');
-  useEffect(() => {
-    console.log(props.route.params?.animalType);
-    setValue(props.route.params?.animalValue);
-  }, []);
+
+interface ActionsProps {
+  changeAnimalValue(param: any): any;
+}
+
+type Props = StackScreenProps<any> & ActionsProps;
+
+function _ProductionPhaseUpdatePage(props: Props) {
+  const updateSubmit = async (value: string) => {
+    props.changeAnimalValue({
+      id: props.route.params?.animalId,
+      animalKey: props.route.params?.animalKey,
+      value,
+    });
+    props.navigation.goBack();
+  };
 
   return (
     <ContainerScreen>
@@ -88,21 +88,17 @@ export function ProductionPhaseUpdatePage(props: StackScreenProps<any>) {
       <ContentScreen>
         <PhaseProductionForm
           animalType={props.route.params?.animalType}
-          onPressValue={(v) => setValue(v)}
+          onPressValue={(v) => updateSubmit(v)}
         />
       </ContentScreen>
-      <BottomControlContainer>
-        <ButtonSideBox>
-          <Button variant="text" onPress={props.navigation.goBack}>
-            <BtnContentText>Voltar</BtnContentText>
-          </Button>
-        </ButtonSideBox>
-        <ButtonSideBox>
-          <Button variant="contained" color="action-primary">
-            <BtnContentText color="action-primary">Concluir</BtnContentText>
-          </Button>
-        </ButtonSideBox>
-      </BottomControlContainer>
     </ContainerScreen>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(animalActions, dispatch);
+
+export const ProductionPhaseUpdatePage = connect(
+  null,
+  mapDispatchToProps,
+)(_ProductionPhaseUpdatePage);

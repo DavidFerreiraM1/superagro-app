@@ -15,3 +15,7 @@ export const changeAnimalValue = (data: any): any => {
 export const updateAnimalRequest = (data: IAnimal): any => {
   return action(AnimalListType.UPDATE_LIST_REQUEST, data);
 };
+
+export const insertRealmDataOnState = (): any => {
+  return action(AnimalListType.INSERT_REALM_ON_STATE);
+};

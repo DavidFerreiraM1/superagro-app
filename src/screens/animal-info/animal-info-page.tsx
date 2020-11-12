@@ -1,6 +1,7 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
+import {connect} from 'react-redux';
 import {ContainerScreen} from '../../components';
 import {
   BackButton,
@@ -16,6 +17,8 @@ import {getAnimalOnRealm} from './animal-info-service';
 
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
+import {AppState} from '../../redux';
+import {IAnimal} from '../../core/interfaces';
 
 const defaultColor = DefaultColors['brand-primary'].main;
 const headerIconImage: any = {
@@ -31,7 +34,13 @@ const headerIconImage: any = {
   },
 };
 
-export function AnimalInfoPage(props: StackScreenProps<any>) {
+interface StateProps {
+  animalList: IAnimal[];
+}
+
+type Props = StackScreenProps<any> & StateProps;
+
+function _AnimalInfoPage(props: Props) {
   const [data, setData] = useState({
     id: '',
     tipoAnimal: 'swine',
@@ -50,7 +59,11 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       const getDataOnRealm = async () => {
-        setData(await getAnimalOnRealm(props.route.params?.animalId));
+        // setData(await getAnimalOnRealm(props.route.params?.animalId));
+        const list: any = props.animalList.filter(
+          (animal) => animal.id === props.route.params?.animalId,
+        )[0];
+        setData(list);
       };
       getDataOnRealm();
     });
@@ -227,3 +240,9 @@ export function AnimalInfoPage(props: StackScreenProps<any>) {
     </ContainerScreen>
   );
 }
+
+const mapStateToProps = (state: AppState) => ({
+  animalList: state.animalList.list,
+});
+
+export const AnimalInfoPage = connect(mapStateToProps)(_AnimalInfoPage);
