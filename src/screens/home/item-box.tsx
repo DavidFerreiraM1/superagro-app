@@ -15,6 +15,9 @@ import {
 interface Props {
   onNavigationPress: () => void;
   removeItemPress: () => void;
+  name: string;
+  specie: string;
+  status: string;
 }
 
 export function ItemBox(props: Props) {
@@ -27,15 +30,15 @@ export function ItemBox(props: Props) {
       </ColumnBoxRemove>
       <ColumnBox>
         <TitleColumn>NOME</TitleColumn>
-        <ValueColumn>IAH768</ValueColumn>
+        <ValueColumn>{props.name}</ValueColumn>
       </ColumnBox>
       <ColumnBox>
         <TitleColumn>RAÇA</TitleColumn>
-        <ValueColumn>ui-4460/g</ValueColumn>
+        <ValueColumn>{props.specie}</ValueColumn>
       </ColumnBox>
       <ColumnBox>
         <TitleColumn>STATUS</TitleColumn>
-        <ValueColumn>Vendido</ValueColumn>
+        <ValueColumn>{props.status}</ValueColumn>
       </ColumnBox>
       <ColumnRight>
         <ArrowIcon height={24} width={24} />

@@ -2,7 +2,7 @@
 import {StackHeaderProps} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {BottomControl} from './bottom-control';
-import {FormRegisterContext} from './form-context';
+import {FormRegisterContext} from '../../context';
 import {FormPage} from './form-page';
 import {ContentScreen} from './styles';
 import {TextInputForm} from '../../components/dashboard';

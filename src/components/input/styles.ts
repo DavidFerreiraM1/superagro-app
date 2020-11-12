@@ -1,6 +1,6 @@
 import Styled from 'styled-components/native';
 import {TextInput as RnTextInput} from 'react-native';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {StyleProps} from './types';
 
 const setBorderColor = ({color, variant}: StyleProps): string => {

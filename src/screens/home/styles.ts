@@ -1,5 +1,5 @@
 import Styled from 'styled-components/native';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 
 export const BackgroundScreen = Styled.View`
   flex: 1;

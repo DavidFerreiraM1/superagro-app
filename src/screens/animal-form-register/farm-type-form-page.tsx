@@ -7,7 +7,7 @@ import {ContentScreen} from './styles';
 
 import {FormPage} from './form-page';
 
-import {FormRegisterContext} from './form-context';
+import {FormRegisterContext} from '../../context';
 import {FarmTypeForm} from '../../components/dashboard';
 
 export function FarmTypeFormPage(props: StackHeaderProps) {

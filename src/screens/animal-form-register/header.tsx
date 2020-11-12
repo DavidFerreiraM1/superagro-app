@@ -1,5 +1,5 @@
-import React from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useContext} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import PoultryImage from '../../assets/images/poultry.png';
 import PigImage from '../../assets/images/pig.png';
 import {
@@ -12,6 +12,7 @@ import {
   TitleImage,
 } from './styles';
 import ArrowBack from '../../assets/icons/arrow.svg';
+import {FormRegisterContext} from '../../context';
 
 /**
  * Valores mudam entre as imagens
@@ -19,21 +20,29 @@ import ArrowBack from '../../assets/icons/arrow.svg';
  * poultry - height: 42, width: 45
  */
 
-// const topImages = {
-//   pig: {
-//     url: PigImage,
-//     text: 'Suínos',
-//     style: {height: 29, width: 43},
-//   },
-//   poultry: {
-//     url: PoultryImage,
-//     text: 'Aves',
-//     style: {height: 42, width: 45},
-//   },
-// };
+const topImages: any = {
+  '': {
+    url: PigImage,
+    text: 'Suínos',
+    style: {height: 29, width: 43},
+  },
+  swine: {
+    url: PigImage,
+    text: 'Suínos',
+    style: {height: 29, width: 43},
+  },
+  poultry: {
+    url: PoultryImage,
+    text: 'Aves',
+    style: {height: 42, width: 45},
+  },
+};
 
 export function Header() {
+  const {name} = useRoute();
   const {goBack} = useNavigation();
+  const {values} = useContext(FormRegisterContext);
+
   return (
     <HeaderRoot>
       <HeaderContent>
@@ -46,7 +55,12 @@ export function Header() {
         </BackButtonArea>
         <TitleArea>
           <TitleBox>
-            <TitleImage source={PoultryImage} />
+            {name !== 'animal-type' && (
+              <TitleImage
+                style={topImages[values.tipoAnimal].style}
+                source={topImages[values.tipoAnimal].url}
+              />
+            )}
           </TitleBox>
         </TitleArea>
       </HeaderContent>

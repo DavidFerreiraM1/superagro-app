@@ -4,7 +4,7 @@ import React, {useContext} from 'react';
 import {AnimalCategoryForm} from '../../components/dashboard';
 import {FormPage} from './form-page';
 import {ContentScreen, SelectFormArea} from './styles';
-import {FormRegisterContext} from './form-context';
+import {FormRegisterContext} from '../../context';
 
 export function AnimalCategoryFormPage(props: StackHeaderProps) {
   const {setFormValues} = useContext(FormRegisterContext);

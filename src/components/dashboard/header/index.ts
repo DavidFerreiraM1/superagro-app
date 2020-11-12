@@ -1,5 +1,5 @@
 import Styled from 'styled-components/native';
-import {DefaultColors} from '../../../design-tokens';
+import {DefaultColors} from '../../../styles-utils';
 
 export const HeaderRoot = Styled.View`
   width: 100%;

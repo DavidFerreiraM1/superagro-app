@@ -1,7 +1,7 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {ContainerScreen} from '../../components';
-import {DefaultColors} from '../../design-tokens';
+import {DefaultColors} from '../../styles-utils';
 import {Header} from './header';
 
 export function FormPage(props: any) {

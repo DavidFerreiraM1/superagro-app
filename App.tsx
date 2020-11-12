@@ -7,8 +7,14 @@
  */
 
 import React from 'react';
+import {Provider} from 'react-redux';
 import {AppRouteSwitch} from './src/routes';
+import store from './src/redux/index';
 
-const App = () => <AppRouteSwitch />;
+const App = () => (
+  <Provider store={store}>
+    <AppRouteSwitch />
+  </Provider>
+);
 
 export default App;

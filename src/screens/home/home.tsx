@@ -1,15 +1,19 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-empty-function */
+import 'react-native-gesture-handler';
+import React, {useEffect, useRef, useState} from 'react';
+import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import React, {useRef} from 'react';
 import {StatusBar} from 'react-native';
+import {bindActionCreators, Dispatch} from 'redux';
 import {
   BtnContentText,
   Button,
   ContainerScreen,
   Drawer,
 } from '../../components';
-import {DefaultColors} from '../../design-tokens';
-import {ButtonSelectCategory, ProfilePhoto} from '../../components/dashboard';
+import {DefaultColors} from '../../styles-utils';
+import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -19,23 +23,53 @@ import {
   ListBox,
   BoxSelect,
   SelectContainer,
-  CloseDrawerButton,
-  DrawerAreaProfilePhoto,
-  DrawerPropertyOptionBox,
-  DrawerPropertyOption,
-  DrawerPropertyOptionText,
 } from './styles';
-import ArrowIcon from '../../assets/icons/arrow.svg';
+import {AppState} from '../../redux';
+import {IAnimal} from '../../core/interfaces';
+import {ContentDrawer} from './content-drawer';
+import * as animalActions from '../../redux/ducks/animal/action';
 
-export function Home(props: StackHeaderProps) {
+interface StateProps {
+  animalList: IAnimal[];
+}
+
+interface ActionProps {
+  insertRealmDataOnState(): void;
+}
+
+type Props = StateProps & StackHeaderProps & ActionProps;
+
+export function _Home(props: Props) {
   const drawerRef: any = useRef();
+  const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
   const openDrawer = () => {
-    drawerRef.current.open();
+    setDrawerIsOpen(true);
+    setTimeout(() => drawerRef.current.open(), 2);
+  };
+  const closeDrawer = () => {
+    drawerRef.current.close();
+    setTimeout(() => setDrawerIsOpen(false), 420);
   };
 
   const registerNewItemNavigate = () => {
+    if (drawaerIsOpen) {
+      closeDrawer();
+    }
     props.navigation.navigate('item-form-register');
   };
+
+  const navigateToAnimalInfoScreen = (id?: string) => {
+    props.navigation.navigate('animal-info-page', {
+      screen: 'list-page',
+      params: {animalId: id},
+    });
+  };
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      props.insertRealmDataOnState();
+    });
+  }, []);
 
   return (
     <ContainerScreen>
@@ -54,56 +88,54 @@ export function Home(props: StackHeaderProps) {
           </BoxSelect>
         </SelectContainer>
         <ListBox contentContainerStyle={{paddingBottom: 88}}>
-          <ItemBox
-            onNavigationPress={() =>
-              props.navigation.navigate('animal-info-page')
-            }
-            removeItemPress={() => {}}
-          />
-          <ItemBox
-            onNavigationPress={() =>
-              props.navigation.navigate('animal-info-page')
-            }
-            removeItemPress={() => {}}
-          />
+          {props.animalList.map((m, key) => {
+            return (
+              <ItemBox
+                key={key}
+                name={m.nome}
+                specie={m.raca}
+                status={m.statusAnimal}
+                onNavigationPress={() => navigateToAnimalInfoScreen(m.id)}
+                removeItemPress={() => {}}
+              />
+            );
+          })}
         </ListBox>
         <BottomBox>
           <Button
-            onPress={registerNewItemNavigate}
             variant="contained"
-            color="action-primary">
+            color="action-primary"
+            onPress={registerNewItemNavigate}>
             <BtnContentText color="action-primary">ADICIONAR</BtnContentText>
           </Button>
         </BottomBox>
       </BackgroundScreen>
       <>
-        <Drawer ref={drawerRef}>
-          <CloseDrawerButton onPress={() => drawerRef.current.close()}>
-            <ArrowIcon height={24} width={24} />
-          </CloseDrawerButton>
-          <DrawerAreaProfilePhoto>
-            <ProfilePhoto disabled />
-          </DrawerAreaProfilePhoto>
-          <DrawerPropertyOptionBox>
-            <DrawerPropertyOption>
-              <DrawerPropertyOptionText
-                onPress={() => {
-                  drawerRef.current.close();
-                  props.navigation.navigate('user-info-page');
-                }}>
-                Usuário
-              </DrawerPropertyOptionText>
-            </DrawerPropertyOption>
-            <DrawerPropertyOption
-              onPress={() => {
-                drawerRef.current.close();
+        {drawaerIsOpen ? (
+          <Drawer ref={drawerRef}>
+            <ContentDrawer
+              onPressDrawerClose={closeDrawer}
+              onPressFarmInfoNavigate={() => {
+                closeDrawer();
                 props.navigation.navigate('farm-info-page');
-              }}>
-              <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
-            </DrawerPropertyOption>
-          </DrawerPropertyOptionBox>
-        </Drawer>
+              }}
+              onPressUserInfoNavigate={() => {
+                closeDrawer();
+                props.navigation.navigate('user-info-page');
+              }}
+            />
+          </Drawer>
+        ) : null}
       </>
     </ContainerScreen>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(animalActions, dispatch);
+
+const mapStateToProps = (state: AppState) => ({
+  animalList: state.animalList.list,
+});
+
+export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home);
