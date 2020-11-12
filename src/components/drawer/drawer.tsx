@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useImperativeHandle} from 'react';
 import {Animated, Dimensions, StatusBar} from 'react-native';
 import {DefaultColors} from '../../design-tokens';
 import {DrawerRoot} from './styles';
@@ -6,7 +6,6 @@ import {DrawerRoot} from './styles';
 const WIDTH_SCREEN = Dimensions.get('screen').width;
 
 export function _Drawer(props: any, ref: any) {
-  const [isOpen, setIsOpen] = useState(false);
   const value = new Animated.Value(WIDTH_SCREEN);
 
   const animation = (toValue: number) =>
