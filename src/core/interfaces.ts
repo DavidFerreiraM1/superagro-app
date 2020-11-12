@@ -12,3 +12,19 @@ export interface IAnimal {
   tipoGranja: string;
   statusAnimal: string;
 }
+
+export interface IUser {
+  id?: string;
+  userName: string;
+  cpf: string;
+  password: string;
+  isLogged: boolean;
+}
+
+export interface IFarm {
+  id?: string;
+  nome: string;
+  cnpj: string;
+  ownerId: string; // usuário
+  active: boolean;
+}

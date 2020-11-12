@@ -5,3 +5,4 @@ export {FarmInfoNavigation} from './farm-info';
 export {AnimalInfoPage} from './animal-info/animal-info-page';
 export {AnimalInfoNavigation} from './animal-info';
 export {LoadLoginPage} from './load-login/load-login-page';
+export {UserFormRegister} from './user-form-register';

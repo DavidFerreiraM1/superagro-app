@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {StatusBar} from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
 import {
   BottomModal,
   BtnContentText,
@@ -24,7 +25,7 @@ import {
 import ImageApp from '../../assets/images/image-app.png';
 import {DefaultColors} from '../../styles-utils';
 
-export function LoadLoginPage() {
+export function LoadLoginPage(props: StackScreenProps<any>) {
   const [renderModal, setRenderModal] = useState(false);
   const modaRef: any = useRef();
 
@@ -36,6 +37,10 @@ export function LoadLoginPage() {
   const closeModal = () => {
     modaRef.current.close();
     setTimeout(() => setRenderModal(false), 420);
+  };
+
+  const formRegisterNavigate = () => {
+    props.navigation.navigate('user-form-register');
   };
 
   return (
@@ -50,7 +55,10 @@ export function LoadLoginPage() {
         </ImageAppBox>
       </ContentScreen>
       <BottomComponents>
-        <Button variant="contained" color="action-primary">
+        <Button
+          variant="contained"
+          color="action-primary"
+          onPress={formRegisterNavigate}>
           <BtnContentText color="action-primary">Cadastrar</BtnContentText>
         </Button>
         <Button

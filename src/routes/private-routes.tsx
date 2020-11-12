@@ -5,7 +5,6 @@ import {
   FarmInfoNavigation,
   Home,
   ItemFormRegister,
-  LoadLoginPage,
   UserInfoNavigation,
 } from '../screens';
 
@@ -13,12 +12,7 @@ const PrivateNavigateStack = createStackNavigator();
 const HeaderNull = () => null;
 export function PrivateRoutes() {
   return (
-    <PrivateNavigateStack.Navigator initialRouteName="load-login">
-      <PrivateNavigateStack.Screen
-        name="load-login"
-        options={{header: HeaderNull}}
-        component={LoadLoginPage}
-      />
+    <PrivateNavigateStack.Navigator initialRouteName="home">
       <PrivateNavigateStack.Screen
         name="home"
         options={{header: HeaderNull}}
