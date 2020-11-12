@@ -3,7 +3,7 @@ export const User = {
   properties: {
     id: 'string?',
     username: 'string',
-    cpf: 'string',
+    email: 'string',
     password: 'string',
     isLogged: 'bool',
   },

@@ -5,11 +5,10 @@ export const UserFormRegisterContext = createContext({
   values: {
     id: '',
     username: '',
-    cpf: '',
+    email: '',
     password: '',
     isLogged: false,
     farmName: '',
-    cnpj: '',
     ownerID: '',
     active: false,
   },
@@ -20,11 +19,10 @@ export function UserFormRegister(props: any) {
   const [values, setValues] = useState({
     id: '',
     username: '',
-    cpf: '',
+    email: '',
     password: '',
     isLogged: false,
     farmName: '',
-    cnpj: '',
     ownerID: '',
     active: false,
   });

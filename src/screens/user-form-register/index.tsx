@@ -2,11 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {UserFormRegister as UserFormContext} from '../../context';
 import {FormName} from './form-username';
-import {FormCpf} from './form-cpf';
+import {FormEmail} from './form-email';
 import {FormPassword} from './form-password';
 import {FormConfirmPassword} from './form-confirm-password';
 import {FormFarmName} from './form-farm-name';
-import {FormFarmCnpj} from './form-farm-cnpj';
 import {RegisterFinalStaging} from './register-final-staging';
 
 const StackFormNavigation = createStackNavigator();
@@ -22,7 +21,7 @@ export function UserFormRegister() {
         />
         <StackFormNavigation.Screen
           options={{header: headerNull}}
-          component={FormCpf}
+          component={FormEmail}
           name="form-cpf"
         />
         <StackFormNavigation.Screen
@@ -39,11 +38,6 @@ export function UserFormRegister() {
           options={{header: headerNull}}
           component={FormFarmName}
           name="form-farm-name"
-        />
-        <StackFormNavigation.Screen
-          options={{header: headerNull}}
-          component={FormFarmCnpj}
-          name="form-farm-cnpj"
         />
         <StackFormNavigation.Screen
           options={{header: headerNull}}

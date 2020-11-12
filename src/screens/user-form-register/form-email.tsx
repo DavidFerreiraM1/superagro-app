@@ -7,15 +7,15 @@ import {ContentScreen} from './styles';
 import {TextInputForm} from '../../components/dashboard';
 import {BottomControl} from './bottom-control';
 
-export function FormFarmCnpj(props: StackHeaderProps) {
+export function FormEmail(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(UserFormRegisterContext);
   return (
     <FormPage>
       <ContentScreen>
         <TextInputForm
-          label="Informe o CNPJ (se tiver)"
-          value={values.cnpj}
-          onChangeText={(v) => setFormValues('cnpj', v)}
+          label="Informe o seu email"
+          value={values.email}
+          onChangeText={(v) => setFormValues('email', v)}
         />
       </ContentScreen>
       <BottomControl
@@ -23,7 +23,7 @@ export function FormFarmCnpj(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('register-final-stage');
+          props.navigation.navigate('form-password');
         }}
       />
     </FormPage>

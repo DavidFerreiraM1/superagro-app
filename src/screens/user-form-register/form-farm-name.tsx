@@ -23,7 +23,7 @@ export function FormFarmName(props: StackHeaderProps) {
           props.navigation.goBack();
         }}
         next={() => {
-          props.navigation.navigate('form-farm-cnpj');
+          props.navigation.navigate('register-final-stage');
         }}
       />
     </FormPage>

@@ -80,3 +80,16 @@ export const ButtonClose = Styled(TouchableOpacity)`
   background-color: brown;
   border-radius: 30px;
 `;
+
+export const ErrorMsgBox = Styled.View`
+  height: 0;
+  width: 100%;
+  bottom: 8px
+`;
+
+export const ErrorMsgText = Styled.Text`
+  font-size: 18px;
+  color: ${DefaultColors['action-error'].main}
+  font-family: OpenSans-Medium;
+  text-align: center;
+`;

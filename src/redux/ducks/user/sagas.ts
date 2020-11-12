@@ -30,7 +30,7 @@ export function* setUserLoggedState({payload: value}: any) {
     realm.create('User', {
       id: userId,
       username: data.username,
-      cpf: data.cpf,
+      email: data.email,
       password: data.password,
       isLogged: true,
     });
@@ -38,7 +38,6 @@ export function* setUserLoggedState({payload: value}: any) {
     realm.create('Farm', {
       id: farmId,
       name: data.farmName,
-      cnpj: data.cnpj,
       ownerId: userId,
       active: true,
     });

@@ -15,8 +15,8 @@ export interface IAnimal {
 
 export interface IUser {
   id?: string;
-  userName: string;
-  cpf: string;
+  name: string;
+  email: string;
   password: string;
   isLogged: boolean;
 }
@@ -24,7 +24,6 @@ export interface IUser {
 export interface IFarm {
   id?: string;
   name: string;
-  cnpj: string;
   ownerId: string; // usuário
   active: boolean;
 }
