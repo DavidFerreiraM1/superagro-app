@@ -45,6 +45,10 @@ export function UserInfoPage(props: StackHeaderProps) {
             propertyName="Senha cadastrada"
             propertyValue="****"
           />
+          <FieldPropertyInfo
+            propertyName="Nome da granja"
+            propertyValue="Granja Comary"
+          />
         </FieldBox>
       </ContentScreen>
     </ContainerScreen>

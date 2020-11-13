@@ -16,8 +16,8 @@ export const ImageAppBox = Styled.View`
 `;
 
 export const ImageApp = Styled.Image`
-  height: 240px;
-  width: 158px;
+  height: 160px;
+  width: 105px;
 `;
 
 export const BottomComponents = Styled.View`

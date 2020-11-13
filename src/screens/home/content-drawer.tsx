@@ -11,7 +11,6 @@ import {ProfilePhoto} from '../../components/dashboard';
 
 interface Props {
   onPressUserInfoNavigate(): void;
-  onPressFarmInfoNavigate(): void;
   onPressDrawerClose(): void;
 }
 
@@ -32,12 +31,6 @@ export function ContentDrawer(props: Props) {
             }}>
             Usuário
           </DrawerPropertyOptionText>
-        </DrawerPropertyOption>
-        <DrawerPropertyOption
-          onPress={() => {
-            props.onPressFarmInfoNavigate();
-          }}>
-          <DrawerPropertyOptionText>Granja</DrawerPropertyOptionText>
         </DrawerPropertyOption>
       </DrawerPropertyOptionBox>
     </>

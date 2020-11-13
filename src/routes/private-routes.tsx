@@ -2,7 +2,6 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   AnimalInfoNavigation,
-  FarmInfoNavigation,
   Home,
   ItemFormRegister,
   UserInfoNavigation,
@@ -27,11 +26,6 @@ export function PrivateRoutes() {
         name="user-info-page"
         options={{headerShown: false}}
         component={UserInfoNavigation}
-      />
-      <PrivateNavigateStack.Screen
-        name="farm-info-page"
-        options={{header: HeaderNull}}
-        component={FarmInfoNavigation}
       />
       <PrivateNavigateStack.Screen
         name="animal-info-page"
