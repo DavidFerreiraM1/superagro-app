@@ -5,6 +5,7 @@ import {
   Home,
   ItemFormRegister,
   UserInfoNavigation,
+  UserInfoUpdate,
 } from '../screens';
 
 const PrivateNavigateStack = createStackNavigator();
@@ -31,6 +32,11 @@ export function PrivateRoutes() {
         name="animal-info-page"
         options={{header: HeaderNull}}
         component={AnimalInfoNavigation}
+      />
+      <PrivateNavigateStack.Screen
+        name="user-info-update"
+        options={{header: HeaderNull}}
+        component={UserInfoUpdate}
       />
     </PrivateNavigateStack.Navigator>
   );
