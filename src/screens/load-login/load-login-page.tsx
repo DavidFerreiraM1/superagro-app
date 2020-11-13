@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {bindActionCreators, Dispatch} from 'redux';
@@ -28,7 +28,7 @@ import {
 } from './styles';
 import ImageApp from '../../assets/images/image-app.png';
 import {DefaultColors} from '../../styles-utils';
-import {checkEmailAndPassword} from './load-login-service';
+import {checkEmailAndPassword, checkUserActive} from './load-login-service';
 import * as userActions from '../../redux/ducks/user/action';
 
 interface ActionProps {
@@ -83,6 +83,15 @@ function _LoadLoginPage(props: Props) {
   const formRegisterNavigate = () => {
     props.navigation.navigate('user-form-register');
   };
+
+  useEffect(() => {
+    props.navigation.addListener('focus', () => {
+      checkUserActive(() => {
+        props.navigation.navigate('client');
+        props.autoUpdateState();
+      });
+    });
+  }, []);
 
   return (
     <ContainerScreen>

@@ -28,6 +28,7 @@ import {AppState} from '../../redux';
 import {IAnimal} from '../../core/interfaces';
 import {ContentDrawer} from './content-drawer';
 import * as animalActions from '../../redux/ducks/animal/action';
+import {logout} from './home-service';
 
 interface StateProps {
   animalList: IAnimal[];
@@ -63,6 +64,11 @@ export function _Home(props: Props) {
       screen: 'list-page',
       params: {animalId: id},
     });
+  };
+
+  const onLogout = async () => {
+    await logout();
+    props.navigation.replace('public');
   };
 
   useEffect(() => {
@@ -115,10 +121,7 @@ export function _Home(props: Props) {
           <Drawer ref={drawerRef}>
             <ContentDrawer
               onPressDrawerClose={closeDrawer}
-              onPressFarmInfoNavigate={() => {
-                closeDrawer();
-                props.navigation.navigate('farm-info-page');
-              }}
+              onPressLogout={onLogout}
               onPressUserInfoNavigate={() => {
                 closeDrawer();
                 props.navigation.navigate('user-info-page');
