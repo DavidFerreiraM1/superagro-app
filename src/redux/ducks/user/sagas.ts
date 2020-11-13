@@ -4,7 +4,7 @@
 import {put} from 'redux-saga/effects';
 import {RealConnection} from '../../../realm/realm-connection';
 import {idGenerator} from '../../../utils';
-import {updateAnimalList} from './action';
+import {updateUserLogged} from './action';
 
 export function* setUserLoggedState({payload: value}: any) {
   const data = value.data;
@@ -44,11 +44,28 @@ export function* setUserLoggedState({payload: value}: any) {
   });
 
   yield put(
-    updateAnimalList({
+    updateUserLogged({
       id: userId,
       username: data.username,
       farmId,
       farmName: data.farmName,
+    }),
+  );
+}
+
+export function* autoUpdateState() {
+  const realm = yield RealConnection();
+  const userActive = realm.objects('User').filtered('isLogged == $0', true)[0];
+  const farmActive = realm
+    .objects('Farm')
+    .filtered('ownerId == $0', userActive.id)[0];
+
+  yield put(
+    updateUserLogged({
+      id: userActive.id,
+      username: userActive.username,
+      farmId: farmActive.id,
+      farmName: farmActive.name,
     }),
   );
 }

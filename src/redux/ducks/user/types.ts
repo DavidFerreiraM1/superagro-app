@@ -6,6 +6,7 @@
 export enum UserLoggedType {
   SET_USERLOGGED_REQUEST = '@userlogged/SET_USERLOGGED_REQUEST',
   SET_USERLOGGED = '@userlogged/SET_USERLOGGED',
+  AUTO_UPDATE_STATE = '@userlogged/AUTO_UPDATE_STATE',
 }
 
 export interface UserLoggedState {

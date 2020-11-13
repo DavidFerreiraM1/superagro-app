@@ -8,7 +8,7 @@ import {
   changeAnimalValue,
   insertRealmDataOnState,
 } from './animal/sagas';
-import {setUserLoggedState} from './user/sagas';
+import {setUserLoggedState, autoUpdateState} from './user/sagas';
 import {UserLoggedType} from './user/types';
 
 export default function* rootSagas() {
@@ -17,5 +17,6 @@ export default function* rootSagas() {
     takeLatest(AnimalListType.UPDATE_VALUE, changeAnimalValue),
     takeLatest(AnimalListType.INSERT_REALM_ON_STATE, insertRealmDataOnState),
     takeLatest(UserLoggedType.SET_USERLOGGED_REQUEST, setUserLoggedState),
+    takeLatest(UserLoggedType.AUTO_UPDATE_STATE, autoUpdateState),
   ]);
 }

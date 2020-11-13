@@ -3,11 +3,16 @@ import {RealConnection} from '../../realm/realm-connection';
 export async function checkEmailAndPassword(
   email: string,
   password: string,
+  dispatchActions: () => void,
 ): Promise<boolean> {
   const getCpfAndPasword = async (): Promise<boolean> => {
     const realm = await RealConnection();
     const user: any = realm.objects('User').filtered('email == $0', email)[0];
     if (user !== undefined) {
+      realm.write(() => {
+        user.isLogged = true;
+      });
+      dispatchActions();
       return user.password === password;
     }
     return false;

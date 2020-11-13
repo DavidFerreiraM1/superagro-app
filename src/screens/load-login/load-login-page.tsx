@@ -1,6 +1,8 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {bindActionCreators, Dispatch} from 'redux';
+import {connect} from 'react-redux';
 import {
   BottomModal,
   BtnContentText,
@@ -27,8 +29,15 @@ import {
 import ImageApp from '../../assets/images/image-app.png';
 import {DefaultColors} from '../../styles-utils';
 import {checkEmailAndPassword} from './load-login-service';
+import * as userActions from '../../redux/ducks/user/action';
 
-export function LoadLoginPage(props: StackScreenProps<any>) {
+interface ActionProps {
+  autoUpdateState(): any;
+}
+
+type Props = StackScreenProps<any> & ActionProps;
+
+function _LoadLoginPage(props: Props) {
   const [renderModal, setRenderModal] = useState(false);
   const modaRef: any = useRef();
 
@@ -60,7 +69,11 @@ export function LoadLoginPage(props: StackScreenProps<any>) {
 
   const submitLogin = async () => {
     if (
-      !(await checkEmailAndPassword(loginValues.email, loginValues.password))
+      !(await checkEmailAndPassword(
+        loginValues.email,
+        loginValues.password,
+        () => props.autoUpdateState(),
+      ))
     ) {
       return setErrorLogin('Email e senhas inválidos ou incorretos');
     }
@@ -145,3 +158,8 @@ export function LoadLoginPage(props: StackScreenProps<any>) {
     </ContainerScreen>
   );
 }
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(userActions, dispatch);
+
+export const LoadLoginPage = connect(null, mapDispatchToProps)(_LoadLoginPage);
