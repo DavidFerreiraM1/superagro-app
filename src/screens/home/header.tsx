@@ -1,6 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import FarmIcon from '../../assets/images/farm-white.png';
 import {ProfilePhoto} from '../../components/dashboard';
+import {AppState} from '../../redux';
+import {UserLoggedState} from '../../redux/ducks/user/types';
 
 import {SearchFilter} from './search-filter';
 import {
@@ -14,11 +17,17 @@ import {
   HeaderRightElement,
 } from './styles';
 
-interface Props {
+interface OwnProps {
   openDrawer: () => void;
 }
 
-export function Header(props: Props) {
+interface StateProps {
+  farmUserData: UserLoggedState;
+}
+
+type Props = OwnProps & StateProps;
+
+function _Header(props: Props) {
   return (
     <HeaderRoot>
       <HeaderContent>
@@ -26,14 +35,20 @@ export function Header(props: Props) {
           <IconFarmBox>
             <FarmImage source={FarmIcon} />
           </IconFarmBox>
-          <IconFormBoxText>Granja Comary</IconFormBoxText>
+          <IconFormBoxText>{props.farmUserData.farmName}</IconFormBoxText>
         </HeaderLeftElement>
         <HeaderRightElement>
           <ProfilePhoto onPress={props.openDrawer} />
-          <ProfileName>Nome do usuário</ProfileName>
+          <ProfileName>{props.farmUserData.username}</ProfileName>
         </HeaderRightElement>
       </HeaderContent>
       <SearchFilter />
     </HeaderRoot>
   );
 }
+
+const mapStateToProps = (state: AppState) => ({
+  farmUserData: state.userlogged,
+});
+
+export const Header = connect(mapStateToProps)(_Header);

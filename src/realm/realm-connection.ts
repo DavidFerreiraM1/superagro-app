@@ -1,6 +1,6 @@
 import Realm from 'realm';
-import {AnimalItem} from './models';
+import {AnimalItem, Farm, User} from './models';
 
 export async function RealConnection(): Promise<Realm> {
-  return Realm.open({schema: [AnimalItem]});
+  return Realm.open({schema: [AnimalItem, Farm, User]});
 }

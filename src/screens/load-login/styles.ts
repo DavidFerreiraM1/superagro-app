@@ -16,8 +16,8 @@ export const ImageAppBox = Styled.View`
 `;
 
 export const ImageApp = Styled.Image`
-  height: 240px;
-  width: 158px;
+  height: 160px;
+  width: 105px;
 `;
 
 export const BottomComponents = Styled.View`
@@ -79,4 +79,17 @@ export const ButtonClose = Styled(TouchableOpacity)`
   height: 48px;
   background-color: brown;
   border-radius: 30px;
+`;
+
+export const ErrorMsgBox = Styled.View`
+  height: 0;
+  width: 100%;
+  bottom: 8px
+`;
+
+export const ErrorMsgText = Styled.Text`
+  font-size: 18px;
+  color: ${DefaultColors['action-error'].main}
+  font-family: OpenSans-Medium;
+  text-align: center;
 `;

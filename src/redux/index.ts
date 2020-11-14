@@ -5,9 +5,11 @@ import {AnimalListState} from './ducks/animal/types';
 
 import rootReducer from './ducks/root-reducer';
 import rootSagas from './ducks/root-saga';
+import {UserLoggedState} from './ducks/user/types';
 
 export interface AppState {
   animalList: AnimalListState;
+  userlogged: UserLoggedState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
