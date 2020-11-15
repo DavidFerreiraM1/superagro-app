@@ -222,3 +222,9 @@ export const DrawerPropertyOptionText = Styled.Text`
   color: #FFFFFF;
   text-align: center;
 `;
+
+export const ResponseErrorText = Styled.Text`
+  text-align: center;
+  font-family: OpenSans-Medium;
+  color: ${DefaultColors['action-error'].main}
+`;

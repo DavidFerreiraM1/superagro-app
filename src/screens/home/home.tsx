@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import {StatusBar} from 'react-native';
+import {ActivityIndicator, RefreshControl, StatusBar, Text} from 'react-native';
 import {bindActionCreators, Dispatch} from 'redux';
 import {
   BtnContentText,
@@ -23,15 +23,17 @@ import {
   ListBox,
   BoxSelect,
   SelectContainer,
+  ResponseErrorText,
 } from './styles';
 import {AppState} from '../../redux';
 import {IAnimal} from '../../core/interfaces';
 import {ContentDrawer} from './content-drawer';
 import * as animalActions from '../../redux/ducks/animal/action';
 import {logout} from './home-service';
+import {AnimalListState} from '../../redux/ducks/animal/types';
 
 interface StateProps {
-  animalList: IAnimal[];
+  animalList: AnimalListState;
 }
 
 interface ActionProps {
@@ -71,6 +73,10 @@ export function _Home(props: Props) {
     props.navigation.replace('public');
   };
 
+  const disableButtons = () => {
+    return !props.animalList.loading;
+  };
+
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       props.insertRealmDataOnState();
@@ -87,14 +93,33 @@ export function _Home(props: Props) {
         <Header openDrawer={openDrawer} />
         <SelectContainer>
           <BoxSelect>
-            <ButtonSelectCategory typeSelect="swine" onPress={() => {}} />
+            <ButtonSelectCategory
+              disabled={disableButtons()}
+              typeSelect="swine"
+              onPress={() => {}}
+            />
           </BoxSelect>
           <BoxSelect>
-            <ButtonSelectFilterParam />
+            <ButtonSelectFilterParam disabled={disableButtons()} />
           </BoxSelect>
         </SelectContainer>
-        <ListBox contentContainerStyle={{paddingBottom: 88}}>
-          {props.animalList.map((m, key) => {
+        <ListBox
+          contentContainerStyle={{paddingBottom: 88}}
+          refreshControl={
+            <RefreshControl
+              refreshing={props.animalList.loading}
+              size={4}
+              onRefresh={() => {
+                props.insertRealmDataOnState();
+              }}
+            />
+          }>
+          {!props.animalList.success && (
+            <ResponseErrorText>
+              Não foi possível recuperar a listagem
+            </ResponseErrorText>
+          )}
+          {props.animalList.list.map((m, key) => {
             return (
               <ItemBox
                 key={key}
@@ -108,12 +133,14 @@ export function _Home(props: Props) {
           })}
         </ListBox>
         <BottomBox>
-          <Button
-            variant="contained"
-            color="action-primary"
-            onPress={registerNewItemNavigate}>
-            <BtnContentText color="action-primary">ADICIONAR</BtnContentText>
-          </Button>
+          {disableButtons() && (
+            <Button
+              variant="contained"
+              color="action-primary"
+              onPress={registerNewItemNavigate}>
+              <BtnContentText color="action-primary">ADICIONAR</BtnContentText>
+            </Button>
+          )}
         </BottomBox>
       </BackgroundScreen>
       <>
@@ -138,7 +165,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(animalActions, dispatch);
 
 const mapStateToProps = (state: AppState) => ({
-  animalList: state.animalList.list,
+  animalList: state.animalList,
 });
 
 export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home);

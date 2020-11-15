@@ -1,10 +1,13 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {put} from 'redux-saga/effects';
+import {IAnimal} from '../../../core/interfaces';
 import {RealConnection} from '../../../realm/realm-connection';
+import {getAnimalList} from '../../../services/animal-service';
 import {idGenerator} from '../../../utils';
-import {updateAnimalList} from './action';
+import {updateAnimalList, insertRealmDataRequestFailed} from './action';
 
 export function* updateAnimalListState({payload: data}: any) {
   // salva dados no realm e retorna a listagem completa
@@ -36,7 +39,19 @@ export function* changeAnimalValue({payload: param}: any) {
 
 export function* insertRealmDataOnState() {
   const realm = yield RealConnection();
-  realm.objects('AnimalItem');
+  const result = yield getAnimalList();
 
-  yield put(updateAnimalList(realm.objects('AnimalItem')));
+  if (result.success) {
+    result.data?.map((animal: IAnimal): void => {
+      realm.write(() => {
+        realm.create('AnimalItem', {
+          ...animal,
+          id: `${animal.id}`,
+        });
+      });
+    });
+    yield put(updateAnimalList(realm.objects('AnimalItem')));
+  } else {
+    yield put(insertRealmDataRequestFailed());
+  }
 }
