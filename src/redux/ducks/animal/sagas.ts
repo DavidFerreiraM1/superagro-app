@@ -5,20 +5,25 @@
 import {put} from 'redux-saga/effects';
 import {IAnimal} from '../../../core/interfaces';
 import {RealConnection} from '../../../realm/realm-connection';
-import {getAnimalList} from '../../../services/animal-service';
-import {idGenerator} from '../../../utils';
+import {createAnimal, getAnimalList} from '../../../services/animal-service';
+// import {idGenerator} from '../../../utils';
 import {updateAnimalList, insertRealmDataRequestFailed} from './action';
 
 export function* updateAnimalListState({payload: data}: any) {
   // salva dados no realm e retorna a listagem completa
+  const dataResponse = yield createAnimal(data);
   const realm = yield RealConnection();
 
-  realm.write(() => {
-    realm.create('AnimalItem', {
-      id: idGenerator(),
-      ...data,
+  console.log(dataResponse.data);
+
+  if (dataResponse.success) {
+    realm.write(() => {
+      realm.create('AnimalItem', {
+        ...dataResponse.data,
+        id: `${dataResponse.data.id}`,
+      });
     });
-  });
+  }
 
   const result = realm.objects('AnimalItem');
   yield put(updateAnimalList(result));

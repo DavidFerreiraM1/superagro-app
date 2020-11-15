@@ -23,6 +23,7 @@ export function BirthDateFormPage(props: StackHeaderProps) {
     <FormPage>
       <ContentScreen>
         <TextInputForm
+          keyboardType="numeric"
           label="Informe a data de nascimento"
           value={values.dataNascimento}
           onChangeText={(v) => setFormValues('dataNascimento', maskDate(v))}
