@@ -1,4 +1,5 @@
 import React from 'react';
+import {TextInputProps} from 'react-native';
 import {connect} from 'react-redux';
 import FarmIcon from '../../assets/images/farm-white.png';
 import {ProfilePhoto} from '../../components/dashboard';
@@ -25,7 +26,7 @@ interface StateProps {
   farmUserData: UserLoggedState;
 }
 
-type Props = OwnProps & StateProps;
+type Props = OwnProps & StateProps & TextInputProps;
 
 function _Header(props: Props) {
   return (
@@ -42,7 +43,7 @@ function _Header(props: Props) {
           <ProfileName>{props.farmUserData.username}</ProfileName>
         </HeaderRightElement>
       </HeaderContent>
-      <SearchFilter />
+      <SearchFilter {...props} />
     </HeaderRoot>
   );
 }

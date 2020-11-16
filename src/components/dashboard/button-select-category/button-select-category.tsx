@@ -5,7 +5,7 @@ import PigImage from '../../../assets/images/pig.png';
 import PoultryImage from '../../../assets/images/poultry.png';
 import ArrowIcon from '../../../assets/icons/arrow.svg';
 
-const values = {
+const values: any = {
   swine: {
     image: PigImage,
     text: 'Suínos',
@@ -25,7 +25,7 @@ const values = {
 };
 
 interface Props {
-  typeSelect: 'swine' | 'poultry';
+  typeSelect: string;
   onPress: () => any;
   disabled: boolean | undefined;
 }

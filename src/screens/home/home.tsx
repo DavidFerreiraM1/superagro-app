@@ -4,16 +4,27 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import {ActivityIndicator, RefreshControl, StatusBar, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  RefreshControl,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import {bindActionCreators, Dispatch} from 'redux';
 import {
+  BottomModal,
   BtnContentText,
   Button,
   ContainerScreen,
   Drawer,
 } from '../../components';
 import {DefaultColors} from '../../styles-utils';
-import {ButtonSelectCategory} from '../../components/dashboard';
+import {
+  AnimalCategoryForm,
+  ButtonSelectCategory,
+} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -49,6 +60,13 @@ export function _Home(props: Props) {
     list: {},
     viewList: [],
   });
+
+  const [filterState, setFilterState] = useState({
+    animalType: 'swine',
+    param: 'localizacao',
+    value: '',
+  });
+
   const drawerRef: any = useRef();
 
   const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
@@ -84,6 +102,21 @@ export function _Home(props: Props) {
     return !props.animalList.loading;
   };
 
+  const filter = () => {
+    return setListState({
+      ...listState,
+      viewList: props.animalList.list.filter(
+        (animal: any) =>
+          animal.tipoAnimal === filterState.animalType &&
+          animal[filterState.param].toLowerCase().includes(filterState.value),
+      ),
+    });
+  };
+
+  useEffect(() => {
+    filter();
+  }, [filterState]);
+
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       props.insertRealmDataOnState();
@@ -113,17 +146,80 @@ export function _Home(props: Props) {
         barStyle="light-content"
       />
       <BackgroundScreen>
-        <Header openDrawer={openDrawer} />
+        <Header
+          openDrawer={openDrawer}
+          value={filterState.value}
+          onChangeText={(v) =>
+            setFilterState({
+              ...filterState,
+              value: v,
+            })
+          }
+        />
         <SelectContainer>
           <BoxSelect>
             <ButtonSelectCategory
-              disabled={disableButtons()}
-              typeSelect="swine"
-              onPress={() => {}}
+              disabled={!disableButtons()}
+              typeSelect={filterState.animalType}
+              onPress={() => {
+                Alert.alert(
+                  'Selecione uma opção',
+                  'Filtrar lista por',
+                  [
+                    {
+                      text: 'Suínos',
+                      onPress: () =>
+                        setFilterState({
+                          ...filterState,
+                          animalType: 'swine',
+                        }),
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Aves',
+                      onPress: () =>
+                        setFilterState({
+                          ...filterState,
+                          animalType: 'poultry',
+                        }),
+                    },
+                  ],
+                  {cancelable: false},
+                );
+              }}
             />
           </BoxSelect>
           <BoxSelect>
-            <ButtonSelectFilterParam disabled={disableButtons()} />
+            <ButtonSelectFilterParam
+              text={filterState.param}
+              disabled={!disableButtons()}
+              onPress={() => {
+                Alert.alert(
+                  'Selecione uma opção',
+                  'Filtrar lista por',
+                  [
+                    {
+                      text: 'Localização',
+                      onPress: () =>
+                        setFilterState({
+                          ...filterState,
+                          param: 'localizacao',
+                        }),
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Nome',
+                      onPress: () =>
+                        setFilterState({
+                          ...filterState,
+                          param: 'nome',
+                        }),
+                    },
+                  ],
+                  {cancelable: false},
+                );
+              }}
+            />
           </BoxSelect>
         </SelectContainer>
         {!props.animalList.success && (
