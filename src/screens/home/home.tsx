@@ -102,20 +102,16 @@ export function _Home(props: Props) {
     return !props.animalList.loading;
   };
 
-  const filter = () => {
+  const filter = (v: string) => {
     return setListState({
       ...listState,
       viewList: props.animalList.list.filter(
         (animal: any) =>
           animal.tipoAnimal === filterState.animalType &&
-          animal[filterState.param].toLowerCase().includes(filterState.value),
+          animal[filterState.param].toLowerCase().includes(v),
       ),
     });
   };
-
-  useEffect(() => {
-    filter();
-  }, [filterState]);
 
   useEffect(() => {
     props.navigation.addListener('focus', () => {
