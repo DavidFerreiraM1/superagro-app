@@ -38,3 +38,19 @@ export async function createAnimal(
     return new HttpReponseData(false, null, err);
   }
 }
+
+export async function updateAnimal(
+  id: string,
+  data: IAnimal,
+): Promise<HttpReponseData<IAnimal | null>> {
+  try {
+    const result = await httpClient.put(`/${id}`, {...data});
+    return new HttpReponseData(
+      result.data.success,
+      result.data.data,
+      result.data.error,
+    );
+  } catch (err) {
+    return new HttpReponseData(false, null, err);
+  }
+}

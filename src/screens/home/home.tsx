@@ -31,6 +31,7 @@ import {ContentDrawer} from './content-drawer';
 import * as animalActions from '../../redux/ducks/animal/action';
 import {logout} from './home-service';
 import {AnimalListState} from '../../redux/ducks/animal/types';
+import {paginator} from '../../utils/paginator';
 
 interface StateProps {
   animalList: AnimalListState;
@@ -43,7 +44,13 @@ interface ActionProps {
 type Props = StateProps & StackHeaderProps & ActionProps;
 
 export function _Home(props: Props) {
+  const [listState, setListState] = useState<any>({
+    page: 1,
+    list: {},
+    viewList: [],
+  });
   const drawerRef: any = useRef();
+
   const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
   const openDrawer = () => {
     setDrawerIsOpen(true);
@@ -77,32 +84,27 @@ export function _Home(props: Props) {
     return !props.animalList.loading;
   };
 
-  // const paginate = () => {
-  //   let page = 1;
-  //   let obj = {
-  //     1: [],
-  //   };
-  //   props.animalList.list.map((v) => {
-  //     obj = {
-  //       ...obj,
-  //       [page]: [v],
-  //     };
-  //     if (obj[page].length === 10) {
-  //       page += 1;
-  //     }
-  //   });
-  //   console.log('OBJEJTO');
-  // };
-
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       props.insertRealmDataOnState();
     });
   }, []);
 
-  // useEffect(() => {
-  //   paginate();
-  // }, [props.animalList.list]);
+  const setPaginate = () => {
+    setListState({
+      ...listState,
+      viewList: [...listState.viewList, ...listState.list[listState.page + 1]],
+    });
+  };
+
+  useEffect(() => {
+    const resultPaginator = paginator(props.animalList.list);
+    setListState({
+      ...listState,
+      list: resultPaginator,
+      viewList: [...resultPaginator[1]],
+    });
+  }, [props.animalList.list]);
 
   return (
     <ContainerScreen>
@@ -124,8 +126,28 @@ export function _Home(props: Props) {
             <ButtonSelectFilterParam disabled={disableButtons()} />
           </BoxSelect>
         </SelectContainer>
+        {!props.animalList.success && (
+          <ResponseErrorText>
+            Não foi possível recuperar a listagem
+          </ResponseErrorText>
+        )}
         <ListBox
           contentContainerStyle={{paddingBottom: 88}}
+          renderItem={({item, index}: any) => (
+            <ItemBox
+              key={index.toString()}
+              name={item.nome}
+              specie={item.raca}
+              status={item.statusAnimal}
+              onNavigationPress={() => navigateToAnimalInfoScreen(item.id)}
+              removeItemPress={() => {}}
+            />
+          )}
+          data={listState.viewList}
+          keyExtractor={(item: any, index: any) =>
+            index.toString() + item.id + new Date().getTime().toString()
+          }
+          onEndReached={setPaginate}
           refreshControl={
             <RefreshControl
               refreshing={props.animalList.loading}
@@ -134,25 +156,8 @@ export function _Home(props: Props) {
                 props.insertRealmDataOnState();
               }}
             />
-          }>
-          {!props.animalList.success && (
-            <ResponseErrorText>
-              Não foi possível recuperar a listagem
-            </ResponseErrorText>
-          )}
-          {props.animalList.list.map((m, key) => {
-            return (
-              <ItemBox
-                key={key}
-                name={m.nome}
-                specie={m.raca}
-                status={m.statusAnimal}
-                onNavigationPress={() => navigateToAnimalInfoScreen(m.id)}
-                removeItemPress={() => {}}
-              />
-            );
-          })}
-        </ListBox>
+          }
+        />
         <BottomBox>
           {disableButtons() && (
             <Button

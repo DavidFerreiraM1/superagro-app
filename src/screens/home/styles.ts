@@ -115,7 +115,7 @@ export const BtnSelectIcon = Styled.Image`
 
 export const ArrowBtnIcon = Styled.View``;
 
-export const ListBox = Styled.ScrollView`
+export const ListBox = Styled.FlatList`
   flex: 1;
   margin-vertical: 0px;
 `;
