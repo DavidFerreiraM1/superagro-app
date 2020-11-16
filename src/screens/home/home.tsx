@@ -4,27 +4,16 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import {
-  ActivityIndicator,
-  Alert,
-  RefreshControl,
-  StatusBar,
-  Text,
-  View,
-} from 'react-native';
+import {Alert, RefreshControl, StatusBar} from 'react-native';
 import {bindActionCreators, Dispatch} from 'redux';
 import {
-  BottomModal,
   BtnContentText,
   Button,
   ContainerScreen,
   Drawer,
 } from '../../components';
 import {DefaultColors} from '../../styles-utils';
-import {
-  AnimalCategoryForm,
-  ButtonSelectCategory,
-} from '../../components/dashboard';
+import {ButtonSelectCategory} from '../../components/dashboard';
 import {ButtonSelectFilterParam} from './button-select-filter-param';
 import {Header} from './header';
 import {ItemBox} from './item-box';
@@ -37,7 +26,6 @@ import {
   ResponseErrorText,
 } from './styles';
 import {AppState} from '../../redux';
-import {IAnimal} from '../../core/interfaces';
 import {ContentDrawer} from './content-drawer';
 import * as animalActions from '../../redux/ducks/animal/action';
 import {logout} from './home-service';
@@ -63,17 +51,19 @@ export function _Home(props: Props) {
 
   const [filterState, setFilterState] = useState({
     animalType: 'swine',
-    param: 'localizacao',
+    param: 'nome',
     value: '',
   });
 
   const drawerRef: any = useRef();
 
   const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
+
   const openDrawer = () => {
     setDrawerIsOpen(true);
     setTimeout(() => drawerRef.current.open(), 2);
   };
+
   const closeDrawer = () => {
     drawerRef.current.close();
     setTimeout(() => setDrawerIsOpen(false), 420);
@@ -102,37 +92,60 @@ export function _Home(props: Props) {
     return !props.animalList.loading;
   };
 
-  const filter = (v: string) => {
+  const setPaginate = () => {
+    if (listState.list[listState.page + 1] !== undefined) {
+      setListState({
+        ...listState,
+        page: listState.page + 1,
+        viewList: [
+          ...listState.viewList,
+          ...listState.list[listState.page + 1],
+        ],
+      });
+    }
+  };
+
+  const filter = (v: string, animalType: string, param: string) => {
+    const valuePaginated = paginator(props.animalList.list);
+
+    setFilterState({
+      ...filterState,
+      value: v,
+      animalType,
+      param,
+    });
+
+    if (animalType === 'all') {
+      return setListState({
+        ...listState,
+        page: 1,
+        list: valuePaginated,
+        viewList: valuePaginated[1],
+      });
+    }
+
+    const result = paginator(
+      props.animalList.list.filter(
+        (animal: any) =>
+          animal.tipoAnimal === animalType &&
+          animal[param].toLowerCase().includes(v.toLowerCase()),
+      ),
+    );
+
     return setListState({
       ...listState,
-      viewList: props.animalList.list.filter(
-        (animal: any) =>
-          animal.tipoAnimal === filterState.animalType &&
-          animal[filterState.param].toLowerCase().includes(v),
-      ),
+      page: 1,
+      list: result,
+      viewList: result[1],
     });
   };
 
   useEffect(() => {
-    props.navigation.addListener('focus', () => {
-      props.insertRealmDataOnState();
-    });
+    props.insertRealmDataOnState();
   }, []);
 
-  const setPaginate = () => {
-    setListState({
-      ...listState,
-      viewList: [...listState.viewList, ...listState.list[listState.page + 1]],
-    });
-  };
-
   useEffect(() => {
-    const resultPaginator = paginator(props.animalList.list);
-    setListState({
-      ...listState,
-      list: resultPaginator,
-      viewList: [...resultPaginator[1]],
-    });
+    filter('', 'all', 'nome');
   }, [props.animalList.list]);
 
   return (
@@ -146,10 +159,7 @@ export function _Home(props: Props) {
           openDrawer={openDrawer}
           value={filterState.value}
           onChangeText={(v) =>
-            setFilterState({
-              ...filterState,
-              value: v,
-            })
+            filter(v, filterState.animalType, filterState.param)
           }
         />
         <SelectContainer>
@@ -163,21 +173,21 @@ export function _Home(props: Props) {
                   'Filtrar lista por',
                   [
                     {
+                      text: 'Todos',
+                      onPress: () =>
+                        filter(filterState.value, 'all', filterState.param),
+                      style: 'cancel',
+                    },
+                    {
                       text: 'Suínos',
                       onPress: () =>
-                        setFilterState({
-                          ...filterState,
-                          animalType: 'swine',
-                        }),
+                        filter(filterState.value, 'swine', filterState.param),
                       style: 'cancel',
                     },
                     {
                       text: 'Aves',
                       onPress: () =>
-                        setFilterState({
-                          ...filterState,
-                          animalType: 'poultry',
-                        }),
+                        filter(filterState.value, 'poultry', filterState.param),
                     },
                   ],
                   {cancelable: false},
@@ -245,6 +255,10 @@ export function _Home(props: Props) {
               refreshing={props.animalList.loading}
               size={4}
               onRefresh={() => {
+                setListState({
+                  ...listState,
+                  viewList: [],
+                });
                 props.insertRealmDataOnState();
               }}
             />

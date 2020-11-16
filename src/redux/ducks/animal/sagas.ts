@@ -47,6 +47,11 @@ export function* insertRealmDataOnState() {
   const result = yield getAnimalList();
 
   if (result.success) {
+    const allAnimals = realm.objects('AnimalItem');
+    realm.write(() => {
+      realm.delete(allAnimals); // remove todos os registros
+    });
+
     result.data?.map((animal: IAnimal): void => {
       realm.write(() => {
         realm.create('AnimalItem', {

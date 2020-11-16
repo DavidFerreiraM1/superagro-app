@@ -6,6 +6,14 @@ import PoultryImage from '../../../assets/images/poultry.png';
 import ArrowIcon from '../../../assets/icons/arrow.svg';
 
 const values: any = {
+  all: {
+    image: null,
+    text: 'Ambos',
+    style: {
+      height: 24,
+      width: 35,
+    },
+  },
   swine: {
     image: PigImage,
     text: 'Suínos',
