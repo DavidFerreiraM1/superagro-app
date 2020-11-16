@@ -77,11 +77,32 @@ export function _Home(props: Props) {
     return !props.animalList.loading;
   };
 
+  // const paginate = () => {
+  //   let page = 1;
+  //   let obj = {
+  //     1: [],
+  //   };
+  //   props.animalList.list.map((v) => {
+  //     obj = {
+  //       ...obj,
+  //       [page]: [v],
+  //     };
+  //     if (obj[page].length === 10) {
+  //       page += 1;
+  //     }
+  //   });
+  //   console.log('OBJEJTO');
+  // };
+
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       props.insertRealmDataOnState();
     });
   }, []);
+
+  // useEffect(() => {
+  //   paginate();
+  // }, [props.animalList.list]);
 
   return (
     <ContainerScreen>
