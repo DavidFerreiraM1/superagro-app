@@ -4,13 +4,14 @@ import 'react-native-gesture-handler';
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {StackHeaderProps} from '@react-navigation/stack';
-import {Alert, RefreshControl, StatusBar} from 'react-native';
+import {Keyboard, RefreshControl, StatusBar} from 'react-native';
 import {bindActionCreators, Dispatch} from 'redux';
 import {
   BtnContentText,
   Button,
   ContainerScreen,
   Drawer,
+  Alert,
 } from '../../components';
 import {DefaultColors} from '../../styles-utils';
 import {ButtonSelectCategory} from '../../components/dashboard';
@@ -31,6 +32,8 @@ import * as animalActions from '../../redux/ducks/animal/action';
 import {logout} from './home-service';
 import {AnimalListState} from '../../redux/ducks/animal/types';
 import {paginator} from '../../utils/paginator';
+import {AnimalCategorySelect} from './animal-category-select';
+import {AnimalParamSelect} from './animal-param-select';
 
 interface StateProps {
   animalList: AnimalListState;
@@ -43,6 +46,8 @@ interface ActionProps {
 type Props = StateProps & StackHeaderProps & ActionProps;
 
 export function _Home(props: Props) {
+  const [viewAddButton, setViewAddButton] = useState(true);
+
   const [listState, setListState] = useState<any>({
     page: 1,
     list: {},
@@ -56,6 +61,8 @@ export function _Home(props: Props) {
   });
 
   const drawerRef: any = useRef();
+  const alertAnimalCategoryRef: any = useRef();
+  const alertAnimalParamRef: any = useRef();
 
   const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -105,17 +112,20 @@ export function _Home(props: Props) {
     }
   };
 
-  const filter = (v: string, animalType: string, param: string) => {
-    const valuePaginated = paginator(props.animalList.list);
-
+  const filter = (value: string, animalType: string, param: string) => {
     setFilterState({
       ...filterState,
-      value: v,
+      value,
       animalType,
       param,
     });
 
     if (animalType === 'all') {
+      const valuePaginated = paginator(
+        props.animalList.list.filter((animal: any) =>
+          animal[param].toLowerCase().includes(value.toLowerCase()),
+        ),
+      );
       return setListState({
         ...listState,
         page: 1,
@@ -128,7 +138,7 @@ export function _Home(props: Props) {
       props.animalList.list.filter(
         (animal: any) =>
           animal.tipoAnimal === animalType &&
-          animal[param].toLowerCase().includes(v.toLowerCase()),
+          animal[param].toLowerCase().includes(value.toLowerCase()),
       ),
     );
 
@@ -141,10 +151,24 @@ export function _Home(props: Props) {
   };
 
   useEffect(() => {
+    setListState({
+      ...listState,
+      viewList: [],
+    });
     props.insertRealmDataOnState();
+    Keyboard.addListener('keyboardDidShow', () => {
+      setViewAddButton(false);
+    });
+    Keyboard.addListener('keyboardDidHide', () => {
+      setViewAddButton(true);
+    });
   }, []);
 
   useEffect(() => {
+    setListState({
+      ...listState,
+      viewList: [],
+    });
     filter('', 'all', 'nome');
   }, [props.animalList.list]);
 
@@ -168,30 +192,7 @@ export function _Home(props: Props) {
               disabled={!disableButtons()}
               typeSelect={filterState.animalType}
               onPress={() => {
-                Alert.alert(
-                  'Selecione uma opção',
-                  'Filtrar lista por',
-                  [
-                    {
-                      text: 'Todos',
-                      onPress: () =>
-                        filter(filterState.value, 'all', filterState.param),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'Suínos',
-                      onPress: () =>
-                        filter(filterState.value, 'swine', filterState.param),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'Aves',
-                      onPress: () =>
-                        filter(filterState.value, 'poultry', filterState.param),
-                    },
-                  ],
-                  {cancelable: false},
-                );
+                alertAnimalCategoryRef.current.open();
               }}
             />
           </BoxSelect>
@@ -200,30 +201,7 @@ export function _Home(props: Props) {
               text={filterState.param}
               disabled={!disableButtons()}
               onPress={() => {
-                Alert.alert(
-                  'Selecione uma opção',
-                  'Filtrar lista por',
-                  [
-                    {
-                      text: 'Localização',
-                      onPress: () =>
-                        setFilterState({
-                          ...filterState,
-                          param: 'localizacao',
-                        }),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'Nome',
-                      onPress: () =>
-                        setFilterState({
-                          ...filterState,
-                          param: 'nome',
-                        }),
-                    },
-                  ],
-                  {cancelable: false},
-                );
+                alertAnimalParamRef.current.open();
               }}
             />
           </BoxSelect>
@@ -265,16 +243,38 @@ export function _Home(props: Props) {
           }
         />
         <BottomBox>
-          {disableButtons() && (
+          {disableButtons() && viewAddButton ? (
             <Button
               variant="contained"
               color="action-primary"
               onPress={registerNewItemNavigate}>
               <BtnContentText color="action-primary">ADICIONAR</BtnContentText>
             </Button>
-          )}
+          ) : null}
         </BottomBox>
       </BackgroundScreen>
+      <>
+        <Alert ref={alertAnimalCategoryRef}>
+          <AnimalCategorySelect
+            value={filterState.animalType}
+            openPessValue={(v) => {
+              filter(filterState.value, v, filterState.param);
+              alertAnimalCategoryRef.current.close();
+            }}
+          />
+        </Alert>
+      </>
+      <>
+        <Alert ref={alertAnimalParamRef}>
+          <AnimalParamSelect
+            value={filterState.param}
+            openPessValue={(v) => {
+              filter(filterState.value, filterState.animalType, v);
+              alertAnimalParamRef.current.close();
+            }}
+          />
+        </Alert>
+      </>
       <>
         {drawaerIsOpen ? (
           <Drawer ref={drawerRef}>

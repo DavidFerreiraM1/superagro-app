@@ -1,3 +1,4 @@
+import {TouchableOpacity} from 'react-native';
 import Styled from 'styled-components/native';
 import {DefaultColors} from '../../styles-utils';
 
@@ -227,4 +228,67 @@ export const ResponseErrorText = Styled.Text`
   text-align: center;
   font-family: OpenSans-Medium;
   color: ${DefaultColors['action-error'].main}
+`;
+
+export const BgAnimalCategorySelect = Styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AnimalCategorySelectPaper = Styled.View`
+  height: 320px;
+  width: 260px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  justify-content: center;
+  padding-horizontal: 16px;
+`;
+
+const setColor = (active: boolean, color: 'bgColor' | 'textColor'): string => {
+  const activedValue = {
+    bgColor: DefaultColors['brand-primary'].main,
+    textColor: DefaultColors['brand-primary'].contrast,
+  };
+
+  const inativedValue = {
+    bgColor: DefaultColors['brand-primary'].contrast,
+    textColor: DefaultColors['brand-primary'].main,
+  };
+
+  return active ? activedValue[color] : inativedValue[color];
+};
+
+interface AnimalSelectItemProps {
+  active: boolean;
+}
+
+export const AnimalSelectItem = Styled(TouchableOpacity)`
+  margin-vertical: 8px;
+  padding-horizontal: 8px;
+  height: 40px;
+  width: 100%;
+  justify-content: center;
+  border-radius: 32px;
+  background-color: ${({active}: AnimalSelectItemProps): string =>
+    setColor(active, 'bgColor')}};
+`;
+
+export const AnimalSelectText = Styled.Text`
+  height: 100%;
+  font-size: 16px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Regular;
+  color: ${({active}: AnimalSelectItemProps): string =>
+    setColor(active, 'textColor')}}
+`;
+
+export const AnimalSelectLabel = Styled.Text`
+  font-size: 18px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Medium;
+  color: ${DefaultColors['brand-primary'].main}
+  margin-bottom: 16px;
 `;
