@@ -12,7 +12,7 @@ function _Alert(props: any, ref: any) {
 
   const renderComponent = () => {
     return render ? (
-      <AlertBackground>
+      <AlertBackground onTouchStart={() => setRender(false)}>
         <StatusBar backgroundColor="#000000" />
         {props.children}
       </AlertBackground>

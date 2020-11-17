@@ -34,6 +34,7 @@ import {AnimalListState} from '../../redux/ducks/animal/types';
 import {paginator} from '../../utils/paginator';
 import {AnimalCategorySelect} from './animal-category-select';
 import {AnimalParamSelect} from './animal-param-select';
+import {RemoveAnimalAlert} from './remove-animal-alert';
 
 interface StateProps {
   animalList: AnimalListState;
@@ -63,6 +64,7 @@ export function _Home(props: Props) {
   const drawerRef: any = useRef();
   const alertAnimalCategoryRef: any = useRef();
   const alertAnimalParamRef: any = useRef();
+  const alertRemoveAnimalRef: any = useRef();
 
   const [drawaerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -155,6 +157,7 @@ export function _Home(props: Props) {
       ...listState,
       viewList: [],
     });
+
     props.insertRealmDataOnState();
     Keyboard.addListener('keyboardDidShow', () => {
       setViewAddButton(false);
@@ -162,6 +165,11 @@ export function _Home(props: Props) {
     Keyboard.addListener('keyboardDidHide', () => {
       setViewAddButton(true);
     });
+
+    return function removeListeners() {
+      Keyboard.removeAllListeners('keyboardDidShow');
+      Keyboard.removeAllListeners('keyboardDidHide');
+    };
   }, []);
 
   useEffect(() => {
@@ -220,7 +228,7 @@ export function _Home(props: Props) {
               specie={item.raca}
               status={item.statusAnimal}
               onNavigationPress={() => navigateToAnimalInfoScreen(item.id)}
-              removeItemPress={() => {}}
+              removeItemPress={() => alertRemoveAnimalRef.current.open()}
             />
           )}
           data={listState.viewList}
@@ -272,6 +280,14 @@ export function _Home(props: Props) {
               filter(filterState.value, filterState.animalType, v);
               alertAnimalParamRef.current.close();
             }}
+          />
+        </Alert>
+      </>
+      <>
+        <Alert ref={alertRemoveAnimalRef}>
+          <RemoveAnimalAlert
+            onPressOk={() => alertRemoveAnimalRef.current.close()}
+            onPressCancel={() => alertRemoveAnimalRef.current.close()}
           />
         </Alert>
       </>

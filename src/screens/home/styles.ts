@@ -292,3 +292,43 @@ export const AnimalSelectLabel = Styled.Text`
   color: ${DefaultColors['brand-primary'].main}
   margin-bottom: 16px;
 `;
+
+export const RemoveAnimalAlertPaper = Styled.View`
+  height: 180px;
+  width: 260px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  justify-content: center;
+`;
+
+export const RemoveAnimalTopContent = Styled.View`
+  height: 100%;
+  width: 100%;
+  padding-bottom: 64px;
+  justify-content: center;
+`;
+
+export const RemoveAnimalLabel = Styled.Text`
+  top: 16px;
+  padding-horizontal: 16px;
+  font-size: 18px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Bold;
+  color: ${DefaultColors['action-danger'].main}
+  margin-bottom: 16px;
+`;
+
+export const RemoveAnimalBottom = Styled.View`
+  bottom: 0;
+  position: absolute;
+  height: 80px;
+  width: 100%;
+  flex-direction: row;
+  padding-vertical: 8px;
+  padding-horizontal: 8px;
+`;
+
+export const RemoveAnimalButtonSide = Styled.View`
+  width: 50%;
+`;
