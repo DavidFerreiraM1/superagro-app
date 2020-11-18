@@ -3,10 +3,16 @@ import {ArrowBtnIcon} from './styles';
 import {BtnSelectText, BtnSelect} from '../../components';
 import ArrowIcon from '../../assets/icons/arrow.svg';
 
-export function ButtonSelectFilterParam() {
+interface Props {
+  disabled: boolean | undefined;
+  onPress(): void;
+  text: string;
+}
+
+export function ButtonSelectFilterParam(props: Props) {
   return (
-    <BtnSelect>
-      <BtnSelectText>Localização</BtnSelectText>
+    <BtnSelect onPress={props.onPress} disabled={props.disabled}>
+      <BtnSelectText>{props.text}</BtnSelectText>
       <ArrowBtnIcon>
         <ArrowIcon height={14} width={14} />
       </ArrowBtnIcon>

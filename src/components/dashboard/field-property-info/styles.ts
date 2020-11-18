@@ -32,4 +32,6 @@ export const FieldPropertyValueText = Styled.Text`
   fontSize: 16px;
   color: ${DefaultColors['brand-primary'].main}
   margin-right: 16px;
+  width: 120px;
+  text-align: right;
 `;

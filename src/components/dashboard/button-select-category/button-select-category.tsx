@@ -5,7 +5,15 @@ import PigImage from '../../../assets/images/pig.png';
 import PoultryImage from '../../../assets/images/poultry.png';
 import ArrowIcon from '../../../assets/icons/arrow.svg';
 
-const values = {
+const values: any = {
+  all: {
+    image: null,
+    text: 'Ambos',
+    style: {
+      height: 24,
+      width: 35,
+    },
+  },
   swine: {
     image: PigImage,
     text: 'Suínos',
@@ -25,13 +33,14 @@ const values = {
 };
 
 interface Props {
-  typeSelect: 'swine' | 'poultry';
+  typeSelect: string;
   onPress: () => any;
+  disabled: boolean | undefined;
 }
 
 export function ButtonSelectCategory(props: Props) {
   return (
-    <BtnSelect onPress={props.onPress}>
+    <BtnSelect disabled={props.disabled} onPress={props.onPress}>
       <BtnSelectIcon
         style={values[props.typeSelect].style}
         source={values[props.typeSelect].image}

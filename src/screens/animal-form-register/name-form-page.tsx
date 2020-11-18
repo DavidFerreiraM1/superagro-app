@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {StackHeaderProps} from '@react-navigation/stack';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {BottomControl} from './bottom-control';
 import {FormRegisterContext} from '../../context';
 import {FormPage} from './form-page';
-import {ContentScreen} from './styles';
+import {ContentScreen, ErrorMsgBox, ErrorMsgText} from './styles';
 import {TextInputForm} from '../../components/dashboard';
+import {isEmpty} from '../../core/validations';
 
 export function NameFormPage(props: StackHeaderProps) {
   const {values, setFormValues} = useContext(FormRegisterContext);
+  const [error, setError] = useState('');
+  const checkValue = () => {
+    if (!isEmpty(values.nome)) {
+      return setError('Campo inválido');
+    }
+    setError('');
+    return props.navigation.navigate('location');
+  };
   return (
     <FormPage>
       <ContentScreen>
@@ -17,14 +26,15 @@ export function NameFormPage(props: StackHeaderProps) {
           value={values.nome}
           onChangeText={(v) => setFormValues('nome', v)}
         />
+        <ErrorMsgBox>
+          <ErrorMsgText>{error}</ErrorMsgText>
+        </ErrorMsgBox>
       </ContentScreen>
       <BottomControl
         back={() => {
           props.navigation.navigate('animal-type');
         }}
-        next={() => {
-          props.navigation.navigate('location');
-        }}
+        next={checkValue}
       />
     </FormPage>
   );

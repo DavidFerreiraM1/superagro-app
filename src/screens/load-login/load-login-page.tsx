@@ -87,7 +87,7 @@ function _LoadLoginPage(props: Props) {
   useEffect(() => {
     props.navigation.addListener('focus', () => {
       checkUserActive(() => {
-        props.navigation.navigate('client');
+        props.navigation.replace('client');
         props.autoUpdateState();
       });
     });

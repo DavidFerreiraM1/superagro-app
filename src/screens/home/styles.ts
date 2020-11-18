@@ -1,3 +1,4 @@
+import {TouchableOpacity} from 'react-native';
 import Styled from 'styled-components/native';
 import {DefaultColors} from '../../styles-utils';
 
@@ -115,7 +116,7 @@ export const BtnSelectIcon = Styled.Image`
 
 export const ArrowBtnIcon = Styled.View``;
 
-export const ListBox = Styled.ScrollView`
+export const ListBox = Styled.FlatList`
   flex: 1;
   margin-vertical: 0px;
 `;
@@ -221,4 +222,114 @@ export const DrawerPropertyOptionText = Styled.Text`
   font-family: OpenSans-Medium;
   color: #FFFFFF;
   text-align: center;
+`;
+
+export const ResponseErrorText = Styled.Text`
+  text-align: center;
+  font-family: OpenSans-Medium;
+  color: ${DefaultColors['action-error'].main}
+  margin-bottom: 8px;
+`;
+
+export const BgAnimalCategorySelect = Styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AnimalCategorySelectPaper = Styled.View`
+  height: 320px;
+  width: 260px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  justify-content: center;
+  padding-horizontal: 16px;
+`;
+
+const setColor = (active: boolean, color: 'bgColor' | 'textColor'): string => {
+  const activedValue = {
+    bgColor: DefaultColors['brand-primary'].main,
+    textColor: DefaultColors['brand-primary'].contrast,
+  };
+
+  const inativedValue = {
+    bgColor: DefaultColors['brand-primary'].contrast,
+    textColor: DefaultColors['brand-primary'].main,
+  };
+
+  return active ? activedValue[color] : inativedValue[color];
+};
+
+interface AnimalSelectItemProps {
+  active: boolean;
+}
+
+export const AnimalSelectItem = Styled(TouchableOpacity)`
+  margin-vertical: 8px;
+  padding-horizontal: 8px;
+  height: 40px;
+  width: 100%;
+  justify-content: center;
+  border-radius: 32px;
+  background-color: ${({active}: AnimalSelectItemProps): string =>
+    setColor(active, 'bgColor')}};
+`;
+
+export const AnimalSelectText = Styled.Text`
+  height: 100%;
+  font-size: 16px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Regular;
+  color: ${({active}: AnimalSelectItemProps): string =>
+    setColor(active, 'textColor')}}
+`;
+
+export const AnimalSelectLabel = Styled.Text`
+  font-size: 18px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Medium;
+  color: ${DefaultColors['brand-primary'].main}
+  margin-bottom: 16px;
+`;
+
+export const RemoveAnimalAlertPaper = Styled.View`
+  height: 180px;
+  width: 260px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  justify-content: center;
+`;
+
+export const RemoveAnimalTopContent = Styled.View`
+  height: 100%;
+  width: 100%;
+  padding-bottom: 64px;
+  justify-content: center;
+`;
+
+export const RemoveAnimalLabel = Styled.Text`
+  top: 16px;
+  padding-horizontal: 16px;
+  font-size: 18px;
+  text-align: center;
+  text-align-vertical: center;
+  font-family: OpenSans-Bold;
+  color: ${DefaultColors['action-danger'].main}
+  margin-bottom: 16px;
+`;
+
+export const RemoveAnimalBottom = Styled.View`
+  bottom: 0;
+  position: absolute;
+  height: 80px;
+  width: 100%;
+  flex-direction: row;
+  padding-vertical: 8px;
+  padding-horizontal: 8px;
+`;
+
+export const RemoveAnimalButtonSide = Styled.View`
+  width: 50%;
 `;

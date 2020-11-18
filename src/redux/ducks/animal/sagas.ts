@@ -1,19 +1,24 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {put} from 'redux-saga/effects';
+import {formateDateOnView} from '../../../core/format-data-on-view';
+import {IAnimal} from '../../../core/interfaces';
 import {RealConnection} from '../../../realm/realm-connection';
-import {idGenerator} from '../../../utils';
-import {updateAnimalList} from './action';
+import {getAnimalList} from '../../../services/animal-service';
+// import {idGenerator} from '../../../utils';
+import {updateAnimalList, insertRealmDataRequestFailed} from './action';
 
-export function* updateAnimalListState({payload: data}: any) {
+export function* updateAnimalListState({payload: dataResponse}: any) {
   // salva dados no realm e retorna a listagem completa
   const realm = yield RealConnection();
-
   realm.write(() => {
     realm.create('AnimalItem', {
-      id: idGenerator(),
-      ...data,
+      ...dataResponse,
+      id: `${dataResponse.id}`,
+      dataNascimento: formateDateOnView(dataResponse.dataNascimento),
+      entradaPlantel: formateDateOnView(dataResponse.entradaPlantel),
     });
   });
 
@@ -23,20 +28,32 @@ export function* updateAnimalListState({payload: data}: any) {
 
 export function* changeAnimalValue({payload: param}: any) {
   const realm = yield RealConnection();
-
-  let animal: any = {};
-
-  animal = realm.objects('AnimalItem').filtered('id == $0', param.id)[0];
-  realm.write(() => {
-    animal[param.animalKey] = param.value;
-  });
-
   yield put(updateAnimalList(realm.objects('AnimalItem')));
 }
 
 export function* insertRealmDataOnState() {
   const realm = yield RealConnection();
-  realm.objects('AnimalItem');
+  const result = yield getAnimalList();
 
-  yield put(updateAnimalList(realm.objects('AnimalItem')));
+  const allAnimals = realm.objects('AnimalItem');
+
+  if (result.success) {
+    realm.write(() => {
+      realm.delete(allAnimals); // remove todos os registros
+    });
+
+    result.data?.map((animal: IAnimal): void => {
+      realm.write(() => {
+        realm.create('AnimalItem', {
+          ...animal,
+          id: `${animal.id}`,
+          dataNascimento: formateDateOnView(animal.dataNascimento),
+          entradaPlantel: formateDateOnView(animal.entradaPlantel),
+        });
+      });
+    });
+    yield put(updateAnimalList(allAnimals));
+  } else {
+    yield put(insertRealmDataRequestFailed(allAnimals));
+  }
 }

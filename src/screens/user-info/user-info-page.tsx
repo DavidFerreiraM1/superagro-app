@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
-import {StackHeaderProps, StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {ContainerScreen} from '../../components';
 import {
   BackButton,
@@ -68,7 +68,7 @@ export function UserInfoPage(props: Props) {
               <ArrowBack height={24} width={24} />
             </BackButton>
           </BackButtonArea>
-          <ProfilePhoto />
+          <ProfilePhoto disabled />
         </HeaderContent>
       </HeaderRoot>
       <ContentScreen>

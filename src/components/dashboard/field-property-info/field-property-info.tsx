@@ -19,7 +19,9 @@ export function FieldPropertyInfo(props: Props) {
     <FieldPropertyInfoRoot {...otherProps}>
       <FieldPropertyNameText>{propertyName}</FieldPropertyNameText>
       <FieldPropertyRightBox>
-        <FieldPropertyValueText>{propertyValue}</FieldPropertyValueText>
+        <FieldPropertyValueText numberOfLines={2}>
+          {propertyValue}
+        </FieldPropertyValueText>
         <ArrowBack height={20} width={14} />
       </FieldPropertyRightBox>
     </FieldPropertyInfoRoot>

@@ -24,6 +24,7 @@ export function FormConfirmPassword(props: StackHeaderProps) {
     <FormPage>
       <ContentScreen>
         <TextInputForm
+          secureTextEntry
           label="Confirme senha informada"
           value={value}
           onChangeText={(v) => setValue(v)}
