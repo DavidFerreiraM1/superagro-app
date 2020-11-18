@@ -30,3 +30,13 @@ export function dateValidation(data: string): boolean {
   }
   return false;
 }
+
+export function emailvalidation(value: string): boolean {
+  const regex = /^\D[a-z0-9]*\@[a-z0-9]+\.\D[a-z]*\D[a-z]*$/
+
+  if(value === '') return false;
+
+  if (!regex.test(value)) return false;
+
+  return true;
+}

@@ -100,6 +100,11 @@ export function _Home(props: Props) {
 
   const onLogout = async () => {
     await logout();
+    setListState({
+      ...listState,
+      list: {},
+      viewList: [],
+    });
     props.navigation.replace('public');
   };
 
