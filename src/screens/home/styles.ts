@@ -228,6 +228,7 @@ export const ResponseErrorText = Styled.Text`
   text-align: center;
   font-family: OpenSans-Medium;
   color: ${DefaultColors['action-error'].main}
+  margin-bottom: 8px;
 `;
 
 export const BgAnimalCategorySelect = Styled.View`

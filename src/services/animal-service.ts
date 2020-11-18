@@ -54,3 +54,16 @@ export async function updateAnimal(
     return new HttpReponseData(false, null, err);
   }
 }
+
+export async function removeAnimal(id: string): Promise<HttpReponseData<null>> {
+  try {
+    const result = await httpClient.delete(`/${id}`);
+    return new HttpReponseData(
+      result.data.success,
+      result.data.data,
+      result.data.error,
+    );
+  } catch (err) {
+    return new HttpReponseData(false, null, err);
+  }
+}

@@ -35,6 +35,7 @@ import {paginator} from '../../utils/paginator';
 import {AnimalCategorySelect} from './animal-category-select';
 import {AnimalParamSelect} from './animal-param-select';
 import {RemoveAnimalAlert} from './remove-animal-alert';
+import {removeAnimal} from '../../services/animal-service';
 
 interface StateProps {
   animalList: AnimalListState;
@@ -47,6 +48,11 @@ interface ActionProps {
 type Props = StateProps & StackHeaderProps & ActionProps;
 
 export function _Home(props: Props) {
+  const [itemToRemove, setItemToRemove] = useState({
+    text: '',
+    id: '',
+  });
+
   const [viewAddButton, setViewAddButton] = useState(true);
 
   const [listState, setListState] = useState<any>({
@@ -111,6 +117,28 @@ export function _Home(props: Props) {
           ...listState.list[listState.page + 1],
         ],
       });
+    }
+  };
+
+  const removeItem = async () => {
+    const {success} = await removeAnimal(itemToRemove.id);
+    if (success) {
+      setItemToRemove({
+        ...itemToRemove,
+        text: 'Item removido com sucesso!',
+      });
+      setTimeout(() => alertRemoveAnimalRef.current.close(), 1200);
+      setListState({
+        ...listState,
+        viewList: [],
+      });
+      props.insertRealmDataOnState();
+    } else {
+      setItemToRemove({
+        ...itemToRemove,
+        text: 'Erro de conexão com o servidor!',
+      });
+      setTimeout(() => alertRemoveAnimalRef.current.close(), 1200);
     }
   };
 
@@ -215,9 +243,7 @@ export function _Home(props: Props) {
           </BoxSelect>
         </SelectContainer>
         {!props.animalList.success && (
-          <ResponseErrorText>
-            Não foi possível recuperar a listagem
-          </ResponseErrorText>
+          <ResponseErrorText>Sem comunicação com o servidor</ResponseErrorText>
         )}
         <ListBox
           contentContainerStyle={{paddingBottom: 88}}
@@ -228,7 +254,13 @@ export function _Home(props: Props) {
               specie={item.raca}
               status={item.statusAnimal}
               onNavigationPress={() => navigateToAnimalInfoScreen(item.id)}
-              removeItemPress={() => alertRemoveAnimalRef.current.open()}
+              removeItemPress={() => {
+                setItemToRemove({
+                  text: `Remover o Item ${item.nome}`,
+                  id: item.id,
+                });
+                setTimeout(() => alertRemoveAnimalRef.current.open(), 200);
+              }}
             />
           )}
           data={listState.viewList}
@@ -286,7 +318,8 @@ export function _Home(props: Props) {
       <>
         <Alert ref={alertRemoveAnimalRef}>
           <RemoveAnimalAlert
-            onPressOk={() => alertRemoveAnimalRef.current.close()}
+            text={itemToRemove.text}
+            onPressOk={() => removeItem()}
             onPressCancel={() => alertRemoveAnimalRef.current.close()}
           />
         </Alert>

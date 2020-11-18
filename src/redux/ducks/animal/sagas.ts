@@ -14,8 +14,6 @@ export function* updateAnimalListState({payload: data}: any) {
   const dataResponse = yield createAnimal(data);
   const realm = yield RealConnection();
 
-  console.log(dataResponse.data);
-
   if (dataResponse.success) {
     realm.write(() => {
       realm.create('AnimalItem', {
@@ -46,8 +44,9 @@ export function* insertRealmDataOnState() {
   const realm = yield RealConnection();
   const result = yield getAnimalList();
 
+  const allAnimals = realm.objects('AnimalItem');
+
   if (result.success) {
-    const allAnimals = realm.objects('AnimalItem');
     realm.write(() => {
       realm.delete(allAnimals); // remove todos os registros
     });
@@ -60,8 +59,8 @@ export function* insertRealmDataOnState() {
         });
       });
     });
-    yield put(updateAnimalList(realm.objects('AnimalItem')));
+    yield put(updateAnimalList(allAnimals));
   } else {
-    yield put(insertRealmDataRequestFailed());
+    yield put(insertRealmDataRequestFailed(allAnimals));
   }
 }

@@ -20,6 +20,6 @@ export const insertRealmDataOnState = (): any => {
   return action(AnimalListType.INSERT_REALM_ON_STATE);
 };
 
-export const insertRealmDataRequestFailed = (): any => {
-  return action(AnimalListType.UPDATE_LIST_REQUEST_FAILED);
+export const insertRealmDataRequestFailed = (data: IAnimal[]): any => {
+  return action(AnimalListType.UPDATE_LIST_REQUEST_FAILED, {data});
 };

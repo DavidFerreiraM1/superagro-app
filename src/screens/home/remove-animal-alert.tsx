@@ -1,5 +1,4 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {BtnContentText, Button} from '../../components';
 import {
   BgAnimalCategorySelect as BackgroundContent,
@@ -11,35 +10,47 @@ import {
 } from './styles';
 
 interface Props {
+  text: string;
   onPressOk(): void;
   onPressCancel(): void;
 }
 
 export function RemoveAnimalAlert(props: Props) {
+  const [renderBottom, setRenderBottom] = useState(true);
+
+  const onPressOk = () => {
+    setRenderBottom(false);
+    props.onPressOk();
+  };
+
   return (
     <BackgroundContent>
       <RemoveAnimalAlertPaper>
         <RemoveAnimalTopContent>
-          <RemoveAnimalLabel>Confirme a remoção deste item!</RemoveAnimalLabel>
+          <RemoveAnimalLabel>{props.text}</RemoveAnimalLabel>
         </RemoveAnimalTopContent>
-        <RemoveAnimalBottom>
-          <RemoveAnimalButtonSide>
-            <Button
-              variant="text"
-              color="action-secondary"
-              onPress={props.onPressCancel}>
-              <BtnContentText color="action-secondary">cancelar</BtnContentText>
-            </Button>
-          </RemoveAnimalButtonSide>
-          <RemoveAnimalButtonSide>
-            <Button
-              variant="contained"
-              color="action-primary"
-              onPress={props.onPressOk}>
-              <BtnContentText color="action-primary">ok</BtnContentText>
-            </Button>
-          </RemoveAnimalButtonSide>
-        </RemoveAnimalBottom>
+        {renderBottom ? (
+          <RemoveAnimalBottom>
+            <RemoveAnimalButtonSide>
+              <Button
+                variant="text"
+                color="action-secondary"
+                onPress={props.onPressCancel}>
+                <BtnContentText color="action-secondary">
+                  cancelar
+                </BtnContentText>
+              </Button>
+            </RemoveAnimalButtonSide>
+            <RemoveAnimalButtonSide>
+              <Button
+                variant="contained"
+                color="action-primary"
+                onPress={onPressOk}>
+                <BtnContentText color="action-primary">ok</BtnContentText>
+              </Button>
+            </RemoveAnimalButtonSide>
+          </RemoveAnimalBottom>
+        ) : null}
       </RemoveAnimalAlertPaper>
     </BackgroundContent>
   );

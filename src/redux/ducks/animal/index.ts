@@ -16,7 +16,7 @@ const reducer: Reducer<AnimalListState> = (
     case AnimalListType.UPDATE_LIST:
       return {list: action.payload.data, loading: false, success: true};
     case AnimalListType.UPDATE_LIST_REQUEST_FAILED:
-      return {list: [], loading: false, success: false};
+      return {list: action.payload.data, loading: false, success: false};
     default:
       return state;
   }
