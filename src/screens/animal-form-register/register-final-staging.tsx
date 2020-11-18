@@ -7,6 +7,7 @@ import {DefaultColors} from '../../styles-utils';
 import {FormRegisterContext} from '../../context';
 import {ContentScreen, FeedbackText} from './styles';
 import * as animalActions from '../../redux/ducks/animal/action';
+import {createAnimal} from '../../services/animal-service';
 
 interface DispatchProps {
   updateAnimalRequest: (list: any) => void;
@@ -18,21 +19,35 @@ export function _RegisterFinalStaging(props: Props) {
   const {values} = useContext(FormRegisterContext);
   const [feedback, setFeedback] = useState({
     activityIndicator: true,
-    text: 'Estamos guardando os dados localmente!',
+    text: 'Aguarde!',
   });
 
   useEffect(() => {
     const saveDataOnRealm = async () => {
-      props.updateAnimalRequest(values);
-      setTimeout(
-        () =>
-          setFeedback({
-            activityIndicator: false,
-            text: 'Os dados foram salvos com sucesso!',
-          }),
-        2000,
-      );
-      setTimeout(() => props.navigation.navigate('home'), 3000);
+      const {success, data} = await createAnimal(values);
+      if (success) {
+        props.updateAnimalRequest(data);
+        setTimeout(
+          () =>
+            setFeedback({
+              activityIndicator: false,
+              text: 'Os dados foram salvos com sucesso!',
+            }),
+          2000,
+        );
+        setTimeout(() => props.navigation.navigate('home'), 3000);
+      } else {
+        setTimeout(
+          () =>
+            setFeedback({
+              activityIndicator: false,
+              text:
+                'Não foi possível criar este item, sem conexão com o servidor!',
+            }),
+          2000,
+        );
+        setTimeout(() => props.navigation.navigate('home'), 3000);
+      }
     };
 
     saveDataOnRealm();

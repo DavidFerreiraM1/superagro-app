@@ -1,9 +1,10 @@
+/* eslint-disable no-alert */
 import {StackScreenProps} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
+
 import {StatusBar} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import {BtnContentText, Button, ContainerScreen} from '../../components';
+import {ContainerScreen} from '../../components';
 import {
   BackButton,
   BackButtonArea,
@@ -11,20 +12,17 @@ import {
   HeaderContent,
   HeaderRoot,
 } from '../../components/dashboard';
-import {
-  BottomControlContainer,
-  ButtonSideBox,
-  ContentScreen,
-  TitleArea,
-  TitleBox,
-  TitleImage,
-} from './styles';
+import {ContentScreen, TitleArea, TitleBox, TitleImage} from './styles';
 
 import ArrowBack from '../../assets/icons/arrow.svg';
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
 import {DefaultColors} from '../../styles-utils';
 import * as animalActions from '../../redux/ducks/animal/action';
+import {updateAnimal} from '../../services/animal-service';
+import {dateFormat} from '../../core/format-data-save';
+import {IAnimal} from '../../core/interfaces';
+import {RealConnection} from '../../realm/realm-connection';
 /**
  * Precisa receber o valor da chava para ser alterada no realm
  * Chave de objeto para pegar imagem do icone no topo da tela
@@ -61,12 +59,56 @@ type Props = StackScreenProps<any> & ActionsProps;
 
 function _FarmTypeUpdatePage(props: Props) {
   const updateSubmit = async (value: string) => {
-    props.changeAnimalValue({
-      id: props.route.params?.animalId,
-      animalKey: props.route.params?.animalKey,
-      value,
-    });
-    props.navigation.goBack();
+    const realm = await RealConnection();
+    let animal: any = realm
+      .objects('AnimalItem')
+      .filtered('id == $0', props.route.params?.animalId)[0];
+
+    const getValuesUpdate = (): IAnimal => {
+      return {
+        nome: animal.nome,
+        tipoAnimal: animal.tipoAnimal,
+        localizacao: animal.localizacao,
+        dataNascimento: dateFormat(animal.dataNascimento),
+        entradaPlantel: dateFormat(animal.entradaPlantel),
+        pesoCompra: animal.pesoCompra,
+        raca: animal.raca,
+        codigoRastreamento: animal.codigoRastreamento,
+        faseProducao: animal.faseProducao,
+        tipoGranja: animal.tipoGranja,
+        statusAnimal: animal.statusAnimal,
+      };
+    };
+
+    const valuePrepare = (): any => {
+      return {
+        ...getValuesUpdate(),
+        tipoGranja: value,
+      };
+    };
+
+    const {success, data} = await updateAnimal(
+      props.route.params?.animalId,
+      valuePrepare(),
+    );
+
+    if (success) {
+      props.changeAnimalValue({
+        id: props.route.params?.animalId,
+        values: data,
+      });
+
+      const v: any = data;
+      realm.write(() => {
+        animal[props.route.params?.animalKey] =
+          v[props.route.params?.animalKey];
+      });
+
+      props.navigation.goBack();
+    } else {
+      alert('Não possível fazer sua alteração, sem conexão com o servidor!');
+      props.navigation.goBack();
+    }
   };
 
   return (

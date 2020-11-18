@@ -1,9 +1,9 @@
+/* eslint-disable no-alert */
 import {StackScreenProps} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {bindActionCreators, Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {BtnContentText, Button, ContainerScreen} from '../../components';
+import {ContainerScreen} from '../../components';
 import {
   AnimalStatusForm,
   BackButton,
@@ -12,8 +12,6 @@ import {
   HeaderRoot,
 } from '../../components/dashboard';
 import {
-  BottomControlContainer,
-  ButtonSideBox,
   ContentScreenSencondary,
   TitleArea,
   TitleBox,
@@ -25,6 +23,10 @@ import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
 import {DefaultColors} from '../../styles-utils';
 import * as animalActions from '../../redux/ducks/animal/action';
+import {updateAnimal} from '../../services/animal-service';
+import {dateFormat} from '../../core/format-data-save';
+import {RealConnection} from '../../realm/realm-connection';
+import {IAnimal} from '../../core/interfaces';
 
 const topImages: any = {
   '': {
@@ -52,12 +54,56 @@ type Props = StackScreenProps<any> & ActionsProps;
 
 function _AnimalStatusUpdatePage(props: Props) {
   const updateSubmit = async (value: string) => {
-    props.changeAnimalValue({
-      id: props.route.params?.animalId,
-      animalKey: props.route.params?.animalKey,
-      value,
-    });
-    props.navigation.goBack();
+    const realm = await RealConnection();
+    let animal: any = realm
+      .objects('AnimalItem')
+      .filtered('id == $0', props.route.params?.animalId)[0];
+
+    const getValuesUpdate = (): IAnimal => {
+      return {
+        nome: animal.nome,
+        tipoAnimal: animal.tipoAnimal,
+        localizacao: animal.localizacao,
+        dataNascimento: dateFormat(animal.dataNascimento),
+        entradaPlantel: dateFormat(animal.entradaPlantel),
+        pesoCompra: animal.pesoCompra,
+        raca: animal.raca,
+        codigoRastreamento: animal.codigoRastreamento,
+        faseProducao: animal.faseProducao,
+        tipoGranja: animal.tipoGranja,
+        statusAnimal: animal.statusAnimal,
+      };
+    };
+
+    const valuePrepare = (): any => {
+      return {
+        ...getValuesUpdate(),
+        statusAnimal: value,
+      };
+    };
+
+    const {success, data} = await updateAnimal(
+      props.route.params?.animalId,
+      valuePrepare(),
+    );
+
+    if (success) {
+      props.changeAnimalValue({
+        id: props.route.params?.animalId,
+        values: data,
+      });
+
+      const v: any = data;
+      realm.write(() => {
+        animal[props.route.params?.animalKey] =
+          v[props.route.params?.animalKey];
+      });
+
+      props.navigation.goBack();
+    } else {
+      alert('Não possível fazer sua alteração, sem conexão com o servidor!');
+      props.navigation.goBack();
+    }
   };
 
   return (

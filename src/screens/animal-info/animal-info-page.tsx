@@ -13,7 +13,6 @@ import {
 import {ContentScreen, FarmIconBox, FarmIconIMage} from './styles';
 import ArrowBack from '../../assets/icons/arrow.svg';
 import {DefaultColors} from '../../styles-utils';
-import {getAnimalOnRealm} from './animal-info-service';
 
 import PigImage from '../../assets/images/pig.png';
 import PoultryImage from '../../assets/images/poultry.png';
