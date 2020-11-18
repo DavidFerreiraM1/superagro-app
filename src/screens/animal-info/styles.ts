@@ -58,3 +58,15 @@ export const ButtonSideBox = Styled.View`
   align-items: center;
   padding-horizontal: 8px;
 `;
+
+export const ErrorMsgBox = Styled.View`
+  width: 100%;
+  margin-vertical: 32px;
+  margin-left: 24px;
+`;
+
+export const ErrorMsgText = Styled.Text`
+  font-size: 18px;
+  color: ${DefaultColors['action-error'].main}
+  font-family: OpenSans-Medium;
+`;

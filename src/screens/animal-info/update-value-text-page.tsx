@@ -19,6 +19,8 @@ import {
   TitleArea,
   TitleBox,
   TitleImage,
+  ErrorMsgBox,
+  ErrorMsgText,
 } from './styles';
 
 import ArrowBack from '../../assets/icons/arrow.svg';
@@ -30,6 +32,7 @@ import {dateFormat} from '../../core/format-data-save';
 import {updateAnimal} from '../../services/animal-service';
 import {RealConnection} from '../../realm/realm-connection';
 import {IAnimal} from '../../core/interfaces';
+import {dateValidation, isEmpty} from '../../core/validations';
 
 const topImages: any = {
   '': {
@@ -56,13 +59,27 @@ interface ActionsProps {
 type Props = StackScreenProps<any> & ActionsProps;
 
 function _UpdateValueTextPage(props: Props) {
+  const [error, setError] = useState('');
   const [value, setValue] = useState('');
   useEffect(() => {
     setValue(props.route.params?.animalValue);
   }, []);
 
   const updateSubmit = async () => {
+    if (!isEmpty(value)) {
+      return setError('Campo inválido!');
+    }
+
+    if (
+      (props.route.params?.animalKey === 'entradaPlantel' ||
+        props.route.params?.animalKey === 'dataNascimento') &&
+      !dateValidation(value)
+    ) {
+      return setError('Campo Inválido');
+    }
+
     const realm = await RealConnection();
+
     let animal: any = realm
       .objects('AnimalItem')
       .filtered('id == $0', props.route.params?.animalId)[0];
@@ -121,10 +138,11 @@ function _UpdateValueTextPage(props: Props) {
           v[props.route.params?.animalKey];
       });
 
-      props.navigation.goBack();
-    } else {
-      alert('Não possível fazer sua alteração, sem conexão com o servidor!');
+      return props.navigation.goBack();
     }
+    return alert(
+      'Não possível fazer sua alteração, sem conexão com o servidor!',
+    );
   };
 
   return (
@@ -158,6 +176,9 @@ function _UpdateValueTextPage(props: Props) {
           value={value}
           onChangeText={(v) => setValue(v)}
         />
+        <ErrorMsgBox>
+          <ErrorMsgText>{error}</ErrorMsgText>
+        </ErrorMsgBox>
       </ContentScreen>
       <BottomControlContainer>
         <ButtonSideBox>
