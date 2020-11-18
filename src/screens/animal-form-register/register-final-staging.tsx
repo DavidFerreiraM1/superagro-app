@@ -37,16 +37,12 @@ export function _RegisterFinalStaging(props: Props) {
         );
         setTimeout(() => props.navigation.navigate('home'), 3000);
       } else {
-        setTimeout(
-          () =>
-            setFeedback({
-              activityIndicator: false,
-              text:
-                'Não foi possível criar este item, sem conexão com o servidor!',
-            }),
-          2000,
-        );
-        setTimeout(() => props.navigation.navigate('home'), 3000);
+        setFeedback({
+          activityIndicator: false,
+          text: 'Não foi possível criar este item, sem conexão com o servidor!',
+        });
+
+        setTimeout(() => props.navigation.navigate('home'), 4000);
       }
     };
 

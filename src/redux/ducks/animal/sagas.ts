@@ -6,7 +6,7 @@ import {put} from 'redux-saga/effects';
 import {formateDateOnView} from '../../../core/format-data-on-view';
 import {IAnimal} from '../../../core/interfaces';
 import {RealConnection} from '../../../realm/realm-connection';
-import {createAnimal, getAnimalList} from '../../../services/animal-service';
+import {getAnimalList} from '../../../services/animal-service';
 // import {idGenerator} from '../../../utils';
 import {updateAnimalList, insertRealmDataRequestFailed} from './action';
 
@@ -15,10 +15,10 @@ export function* updateAnimalListState({payload: dataResponse}: any) {
   const realm = yield RealConnection();
   realm.write(() => {
     realm.create('AnimalItem', {
-      ...dataResponse.data,
-      id: `${dataResponse.data.id}`,
-      dataNascimento: formateDateOnView(dataResponse.data.dataNascimento),
-      entradaPlantel: formateDateOnView(dataResponse.data.entradaPlantel),
+      ...dataResponse,
+      id: `${dataResponse.id}`,
+      dataNascimento: formateDateOnView(dataResponse.dataNascimento),
+      entradaPlantel: formateDateOnView(dataResponse.entradaPlantel),
     });
   });
 
