@@ -137,7 +137,8 @@ function _LoadLoginPage(props: Props) {
               </ErrorMsgBox>
               <InputBox>
                 <TextInput
-                  placeholder="Informe seu Email cadastrado"
+                  style={{fontFamily: 'OpenSans-Regular', fontSize: 14}}
+                  placeholder="Email"
                   placeholderTextColor={DefaultColors['brand-primary'].main}
                   variant="contained"
                   color="brand-primary"
@@ -145,8 +146,9 @@ function _LoadLoginPage(props: Props) {
                   onChangeText={(v) => onSetLoginValues('email', v)}
                 />
                 <TextInput
+                  style={{fontFamily: 'OpenSans-Light', fontSize: 14}}
                   secureTextEntry
-                  placeholder="Informe sua Senha"
+                  placeholder="Senha"
                   placeholderTextColor={DefaultColors['brand-primary'].main}
                   variant="contained"
                   color="brand-primary"

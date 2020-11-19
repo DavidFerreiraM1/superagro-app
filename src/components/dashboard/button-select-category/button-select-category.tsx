@@ -4,14 +4,15 @@ import {BtnSelect, BtnSelectText} from '../..';
 import PigImage from '../../../assets/images/pig.png';
 import PoultryImage from '../../../assets/images/poultry.png';
 import ArrowIcon from '../../../assets/icons/arrow.svg';
+import FarmImg from '../../../assets/images/farm.png';
 
 const values: any = {
   all: {
-    image: null,
+    image: FarmImg,
     text: 'Ambos',
     style: {
-      height: 24,
-      width: 35,
+      height: 32.5,
+      width: 32,
     },
   },
   swine: {
